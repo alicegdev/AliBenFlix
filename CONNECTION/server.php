@@ -64,7 +64,7 @@ if (isset($_POST['reg_user'])) {
         $query = "INSERT INTO user (nom, prenom, email, password) VALUES('$nom', '$prenom', '$email', '$password')";
         mysqli_query($db, $query);
         $_SESSION['success'] = "Vous êtes connecte";
-        header('location: ..\VUES\index.php');
+        header('location: index.php');
     }
 }
 

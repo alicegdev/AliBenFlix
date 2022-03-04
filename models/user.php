@@ -1,25 +1,18 @@
 <?php
-
-
 class User
 {
-    private int $id;
-    private string $nom;
-    private string $prenom;
-    private string $email;
-    private string $password;
-    private int $rating_fk;
-    private int $lastWatched;
+    private  int $id;
+    private $nom;
+    private $prenom;
+    private $email;
+    private $password;
+    private $rating_fk;
+    private $lastWatched;
 
-    public function __construct(int $id, string $nom, string $prenom, string $email, string $password, int $rating_fk, int $lastWatched)
+    private function __construct($id, $nom, $prenom, $email,)
     {
         $this->id = $id;
         $this->nom = $nom;
-        $this->prenom = $prenom;
-        $this->$email = $email;
-        $this->$password = $password;
-        $this->$rating_fk = $rating_fk;
-        $this->lastWatched = $lastWatched;
     }
 
     public function getId()

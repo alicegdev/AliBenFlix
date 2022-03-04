@@ -12,7 +12,7 @@
         <h2>Se connecter</h2>
     </div>
 
-    <form method="post" action="login.php">
+    <form method="post" action="../controllers/UserController/loginController">
         <?php include('errors.php'); ?>
         <div class="input-group">
             <label>Email</label>
@@ -26,7 +26,7 @@
             <button type="submit" class="btn" name="login_user">Se connecter</button>
         </div>
         <p>
-            Pas encore de compte ? <a href="../controllers/.php">S'inscrire</a>
+            Pas encore de compte ? <a href="register.php">S'inscrire</a>
         </p>
     </form>
 </body>

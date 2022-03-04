@@ -4,8 +4,13 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 // CONNEXION A LA BASE
-$db = mysqli_connect('localhost', 'root', '', 'alibenflix');
 
+
+// MAC OS
+$db = mysqli_connect('localhost', 'root', 'root', 'alibenflix');
+
+// WINDOWS
+//$db = mysqli_connect('localhost', 'root', '', 'alibenflix');
 
 // initializing variables
 $nom = "";

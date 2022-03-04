@@ -6,13 +6,14 @@ class DbModel
     private $password;
     private $dbname;
 
-    protected function connect($servername, $username, $password, $dbname, $db = null, $errors = null)
+    protected function connect()
     {
         $this->servername = "localhost";
-        $this->$username = "root";
-        $this->$password = "";
-        $this->$dbname = "alibenflix";
+        $this->username = "root";
+        $this->password = "";
+        $this->dbname = "alibenflix";
 
-        $conn = new mysqli($this->servername, $this->$username, $this->$password, $this->$dbname);
+        $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
+        return $conn;
     }
 }

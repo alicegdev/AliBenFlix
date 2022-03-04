@@ -1,6 +1,6 @@
 <?php
     class User {
-        private $id;
+        private  int $id;
         private $nom;
         private $prenom;
         private $email;
@@ -8,9 +8,9 @@
         private $rating_fk;
         private $lastWatched;
 
-        private function __construct(int $id = null, string $name = null) {
+        private function __construct($id, $nom, $prenom, $email,  ) {
         $this->id = $id;
-        $this->name = $name;
+        $this->nom = $nom;
     }
 
     }

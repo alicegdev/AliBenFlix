@@ -22,7 +22,7 @@
             </div>
             <div class="logout">
                 <li class="nav-item">
-                    <a class="nav-link" href="../CONNECTION/index.php?logout='1'">SE DECONNECTER</a>
+                    <a class="nav-link" href="../CONNECTION/home.php?logout='1'">SE DECONNECTER</a>
                 </li>
 
         </ul>

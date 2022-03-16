@@ -1,17 +1,19 @@
 <?php
 
-require '..\models\user.php';
+require 'Controller.php';
+require '../models/UserModel.php';
 
-class UserController extends User
+class UserController extends Controller
 {
-
-
-    public function loginController()
+    public function __construct()
     {
-        // il faut que les variables deviennent des attributs de la classe
+        $this->dbModel = new dbModel();
+    }
+    public function login()
+    {
         if (isset($_POST['login_user'])) {
-            $email = mysqli_real_escape_string($this->connect(), $_POST['email']);
-            $password = mysqli_real_escape_string($this->connect(), $_POST['password']);
+            $email = mysqli_real_escape_string($this->dbModel->connect(), $_POST['email']);
+            $password = mysqli_real_escape_string($this->dbModel->connect(), $_POST['password']);
 
             if (empty($email)) {
                 array_push($errors, "Email requis");
@@ -22,7 +24,7 @@ class UserController extends User
             }
 
             if (count($errors) == 0) {
-                $this->login();
+                $this->userModel = new UserModel();
             }
         }
     }

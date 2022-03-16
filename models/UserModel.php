@@ -1,16 +1,17 @@
 <?php
 
-class User extends dbModel
+class UserModel
 {
-    protected int $id;
-    protected string $nom;
-    protected string $prenom;
-    protected string $email;
-    protected string $password;
-    protected int $rating_fk;
-    protected int $lastWatched;
+    protected $id;
+    protected $nom;
+    protected $prenom;
+    protected $email;
+    protected $password;
+    protected $rating_fk;
+    protected $lastWatched;
+    private $db;
 
-    public function __construct(int $id, string $nom, string $prenom, string $email, string $password, int $rating_fk = null, int $lastWatched = null)
+    public function __construct(int $id, string $nom, string $prenom, string $email, string $password, int $rating_fk = null, int $lastWatched = null, $db)
     {
         $this->id = $id;
         $this->nom = $nom;
@@ -19,6 +20,7 @@ class User extends dbModel
         $this->password = $password;
         $this->rating_fk = $rating_fk;
         $this->lastWatched = $lastWatched;
+        $this->dbModel = new DbModel;
     }
 
     public function getId()
@@ -30,20 +32,20 @@ class User extends dbModel
     {
         $password = md5($this->password);
         $query = "SELECT * FROM user WHERE email='$this->email' AND password='$password'";
-        $results = mysqli_query($this->connect(), $query);
+        $results = mysqli_query($this->dbModel->connect(), $query);
 
         if (mysqli_num_rows($results) == 1) {
             $_SESSION['email'] = $this->email;
             $_SESSION['success'] = "Vous êtes maintenant connecté";
             $query2 = "SELECT id, prenom FROM user WHERE email='$this->email' AND password='$password'";
-            $result2 = mysqli_query($this->connect(), $query2);
+            $result2 = mysqli_query($this->dbModel->connect(), $query2);
 
             /* enregistrer le prénom et l'id dans deux variables */
             while ($row = mysqli_fetch_assoc($result2)) {
                 $_SESSION['prenom'] = $row['prenom'];
                 $_SESSION['user_id'] = $row['id'];
             }
-            header('location: index.php');
+            header('location: home.php');
         } else {
             array_push($errors, "Email ou mot de passe incorrect");
         }

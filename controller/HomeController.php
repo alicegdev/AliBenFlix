@@ -13,10 +13,11 @@ class HomeController
             $password = $_POST['password'];
             $check_user_login = $this->model->checkUserLogin($email, md5($password));
             if ($check_user_login == 1) {
-                print_r($check_user_login);
+                // pour tester
+                // print_r($check_user_login);
                 $_SESSION['user_login_status'] = 1;
-                $_SESSION['email'] = $email;
-                $_SESSION['password'] = $password;
+                // $_SESSION['email'] = $email;
+                // $_SESSION['password'] = $password;
             }
         }
         if (isset($_POST['register_submit'])) {
@@ -29,8 +30,8 @@ class HomeController
             if ($user_register == 1) {
                 $_SESSION['prenom'] = $prenom;
                 $_SESSION['user_login_status'] = 1;
-                $_SESSION['email'] = $email;
-                $_SESSION['password'] = $password;
+                // $_SESSION['email'] = $email;
+                // $_SESSION['password'] = $password;
             }
         }
         $this->routeManager();

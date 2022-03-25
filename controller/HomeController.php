@@ -35,6 +35,7 @@ class HomeController
     public function routeManager()
     {
         if (isset($_SESSION['user_login_status'])) {
+            // appeler ici la méthode du carousel
             return require_once('view/dashboard.php');
         }
 
@@ -47,5 +48,9 @@ class HomeController
         }
 
         return require_once('view/login.php');
+    }
+
+    public function dashboard()
+    {
     }
 }

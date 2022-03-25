@@ -1,12 +1,8 @@
 <?php
 class DbModel
 {
-    private $servername;
-    private $username;
-    private $password;
-    private $dbname;
 
-    protected function connect()
+    public function connect()
     {
         $this->servername = "localhost";
         $this->username = "root";

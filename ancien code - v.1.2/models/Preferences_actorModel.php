@@ -31,4 +31,3 @@
             $this->user_fk = $user_fk;
         }
     }
-?>

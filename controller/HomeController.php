@@ -1,22 +1,32 @@
 <?php
 
-class HomeController
+class HomeController extends Controller
 {
     public $model;
     public function indexAction()
     {
+        $errors = array();
         if (isset($_GET['logout'])) {
             unset($_SESSION['user_login_status']);
         }
         if (isset($_POST['login_submit'])) {
             $email = $_POST['email'];
             $password = $_POST['password'];
-            $check_user_login = $this->model->checkUserLogin($email, md5($password));
-            if ($check_user_login == 1) {
-                $_SESSION['user_login_status'] = 1;
+            if (empty($email)) {
+                $errors['email_error'] = "Veuillez renseigner votre e-mail";
+            }
+            if (empty($password)) {
+                $errors['password_error'] = "Veuillez renseigner votre mot de passe";
+            } else {
+                $check_user_login = $this->model->checkUserLogin($email, md5($password));
+                if ($check_user_login == 1) {
+                    $_SESSION['user_login_status'] = 1;
+                    $errors = [];
+                }
             }
         }
         if (isset($_POST['register_submit'])) {
+
             $nom = $_POST['nom'];
             $prenom = $_POST['prenom'];
             $email = $_POST['email'];
@@ -30,9 +40,10 @@ class HomeController
                 // $_SESSION['password'] = $password;
             }
         }
-        $this->routeManager();
+        $this->routeManager($errors);
     }
-    public function routeManager()
+
+    public function routeManager($errors)
     {
         if (isset($_SESSION['user_login_status'])) {
             // appeler ici la méthode du carousel
@@ -47,10 +58,10 @@ class HomeController
             return require_once('view/login.php');
         }
 
-        return require_once('view/login.php');
-    }
-
-    public function dashboard()
-    {
+        if (isset($errors)) {
+            $this->render('login', $errors);
+        } else {
+            $this->render('login');
+        }
     }
 }

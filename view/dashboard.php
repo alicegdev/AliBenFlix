@@ -21,15 +21,20 @@
         <?php include('partials/navbar.php') ?>
     </nav>
     <h1>Bienvenue</h1>
-    <p>
-        <!-- CAROUSEL DES SHOWS STREAMING -->
+
+    <!-- CAROUSEL DES SHOWS STREAMING -->
     <div class="tab-pane fade show active" id="shows_new_in" role="tabpanel" aria-labelledby="nouveautes_series">
         <div class="d-flex justify-content-between">
             <div class="col-md-12">
                 <div id="carouselExampleControls" class="carousel slide container" data-ride="carousel">
 
                     <div class="carousel-inner role=" listbox" style=" width:100%; height: 500px !important">
-                        <!-- <?php for ($i = 0; $i < count($shows_names); $i++) : ?>
+                        <?php
+                        $shows_names = $data['shows_names'];
+                        $shows_synopsis = $data['shows_synopsis'];
+                        $shows_genres = $data['shows_genres'];
+                        $shows_pics_urls = $data['shows_pics_urls'];
+                        for ($i = 0; $i < count($shows_names); $i++) : ?>
                             <div class="carousel-item <?php if ($i == 1) {
                                                             echo ' active';
                                                         } ?> row text-center text-lg-left">
@@ -63,22 +68,22 @@
                     <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="sr-only">Suivant</span>
-                    </a> -->
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="movies_new_in" role="tabpane2" aria-labelledby="nouveautes_films">
-            test onglet nouveautés films
-        </div>
-        <div class="tab-pane fade" id="user_favs" role="tabpane3" aria-labelledby="selon_preferences">
-            test onglet selon préférences
-            <p class="mb-4">Et si vous aimeriez voir autre chose... <i class=" fas fa-hand-point-down"></i></p>
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="../PAGES/preferences.php" role="button">Modifier vos préférences</a>
-            </p>
-        </div>
+    </div>
+    <div class="tab-pane fade" id="movies_new_in" role="tabpane2" aria-labelledby="nouveautes_films">
+        test onglet nouveautés films
+    </div>
+    <div class="tab-pane fade" id="user_favs" role="tabpane3" aria-labelledby="selon_preferences">
+        test onglet selon préférences
+        <p class="mb-4">Et si vous aimeriez voir autre chose... <i class=" fas fa-hand-point-down"></i></p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="../PAGES/preferences.php" role="button">Modifier vos préférences</a>
         </p>
+    </div>
+
 </body>
 
 </html>

@@ -1,26 +1,23 @@
 <?php
-class acontroller{
-.
-.
-.
-private function loginformAction()
+class acontroller
 {
-    $this->actionform='loginform';
-    $this->errorMsg=array();
-    if(isset($post)){
-        if(empty($post('aliasName'))){
-        }else{
+
+    private function loginformAction()
+    {
+        $this->actionform = 'loginform';
+        $this->errorMsg = array();
+        if (isset($post)) {
+            if (empty($post('aliasName'))) {
+            } else {
+            }
+            if (empty($post('password'))) {
+            }
+            if (empty($post('re_password'))) {
+            }
+            if (!empty($post('password')) && !empty($post('re_password'))) {
+            }
         }
-        if(empty($post('password'))){
-        
-        }
-        if(empty($post('re_password'))){
-        }
-        if(!empty($post('password')) && isset($post('re_password')) ){
-        }
+
+        $this->render();
     }
-
-    $this->render();
 }
-
- }   

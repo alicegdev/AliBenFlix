@@ -4,6 +4,6 @@ class Controller
 {
     public function render($file, $data = "")
     {
-        require "view/" . $file . ".php";
+        return require_once "view/" . $file . ".php";
     }
 }

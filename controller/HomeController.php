@@ -40,16 +40,19 @@ class HomeController extends Controller
                 // $_SESSION['password'] = $password;
             }
         }
-        $this->routeManager($errors);
+
+        if (isset($_SESSION['user_login_status'])) {
+            $this->model->carrouselNewShows();
+            $this->model->carrouselShowsGenres();
+            $data = array("shows_names" => $this->model->shows_names, "shows_pics_urls" => $this->model->shows_pics_urls, "shows_synopsis" => $this->model->shows_synopsis, "shows_genres" => $this->model->shows_genres);
+            $this->render('dashboard', $data);
+        } else {
+            $this->routeManager($errors);
+        }
     }
 
     public function routeManager($errors)
     {
-        if (isset($_SESSION['user_login_status'])) {
-            // appeler ici la méthode du carousel
-            return require_once('view/dashboard.php');
-        }
-
         if (isset($_GET['register'])) {
             return require_once('view/register.php');
         }
@@ -61,7 +64,7 @@ class HomeController extends Controller
         if (isset($errors)) {
             $this->render('login', $errors);
         } else {
-            $this->render('login');
+            return require_once('view/login.php');
         }
     }
 }

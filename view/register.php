@@ -21,18 +21,23 @@
             <label>Nom</label>
             <input type="text" name="nom">
         </div>
+        <p></p>
         <div class="input-group">
             <label>Prénom</label>
             <input type="text" name="prenom">
         </div>
+        <p>
+        </p>
         <div class="input-group">
             <label>Email</label>
             <input type="text" name="email">
         </div>
+        <p></p>
         <div class="input-group">
             <label>Mot de passe</label>
             <input type="password" name="password">
         </div>
+        <p></p>
         <div class="input-group">
             <button type="submit" class="btn" name="register_submit">S'inscrire</button>
         </div>

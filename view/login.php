@@ -21,10 +21,21 @@
             <label>Email</label>
             <input type="text" name="email">
         </div>
+        <p>
+            <?php
+            if (isset($errors['email_error'])) {
+                echo $errors['email_error'];
+            } ?></p>
         <div class="input-group">
             <label>Mot de passe</label>
             <input type="password" name="password">
         </div>
+        <p>
+            <?php
+            if (isset($errors['password_error'])) {
+                echo $errors['password_error'];
+            } ?>
+        </p>
         <div class="input-group">
             <button type="submit" class="btn" name="login_submit">Se connecter</button>
         </div>

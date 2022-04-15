@@ -98,7 +98,7 @@
             <div class="tab-pane fade" id="user_favs" role="tabpane3" aria-labelledby="selon_preferences">
                 <p class="text-center">test onglet selon préférences</p>
                 <p class="mb-4 text-center">Et si vous aimeriez voir autre chose...</p> <i class=" fas fa-hand-point-down"></i></p>
-                <p class="text-center"><a class="btn btn-primary btn-lg" href="../PAGES/preferences.php" role="button">Modifier vos préférences</a>
+                <p class="text-center"><a class="btn btn-primary btn-lg" href="?action=preferences" role="button">Modifier vos préférences</a>
                 </p>
             </div>
         </div>

@@ -16,7 +16,7 @@ spl_autoload_register(function ($class) {
 
 $db = Connection::connect($config);
 
-include_once(__DIR__ . '/routes/route.php');
+include_once('routes/route.php');
 
 if (!empty($route)) {
     $routes = explode('@', $route);

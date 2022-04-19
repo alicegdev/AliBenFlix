@@ -22,6 +22,7 @@ class HomeController extends Controller
                 $check_user_login = $this->model->checkUserLogin($email, md5($password));
                 if ($check_user_login == 1) {
                     $_SESSION['user_login_status'] = 1;
+                    $_SESSION['user_id'] = $this->model->getUserId($email, md5($password));
                     $errors = [];
                 }
             }

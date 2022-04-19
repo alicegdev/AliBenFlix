@@ -36,17 +36,16 @@
                     <div class="card-body">
                         <p class="card-text">
                         <ul>
-                            <?php
-
-                            $data['user_genre_preferences'] = $user_genre_preferences_names;
-                            foreach ($user_genre_preferences_names as $fav_genre_name) : ?>
-                                <li>
-                                    <input type="checkbox" name="genre" id="genre-checkbox" checked disabled><?php echo $fav_genre_name; ?>
-                                </li>
-                            <?php endforeach ?>
+                            <?php if (isset($data['user_genre_preferences'])) : ?>
+                                <?php foreach ($data['user_genre_preferences'] as $key => $value) : ?>
+                                    <li>
+                                        <input type="checkbox" name="genre" id="genre-checkbox" checked disabled><?php echo $value['name']; ?>
+                                    </li>
+                                <?php endforeach ?>
+                            <?php endif ?>
                         </ul>
                         </p>
-                        <a href="#" class="btn btn-primary" id="genre-update">Modifier les genres</a>
+                        <a href="#" class="btn btn-primary" id="genre-update">Modifier ou ajouter les genres préférés</a>
                     </div>
                 </div>
             </div>
@@ -55,20 +54,18 @@
                     <div class="card-body">
                         <p class="card-text">
                         <ul>
-                            <!-- TODO : mettre une checkbox avant les noms -->
-                            <?php
-                            // Refaire la requête dans le model pour pouvoir boucler à la fois sur le nom et l'image dans la vue
-
-                            foreach ($user_actor_preferences as $fav_actor) : ?>
-                                <li>
-
-                                    <?php var_dump($fav_actor['firstName']); ?>
-                                    <img src="<?php echo $fav_actor['picture']; ?>" style="max-width: 150px !important; max-height: 150px !important;" alt="<?php echo $fav_actor['firstName'] . ' ' . $fav_actor['lastName']; ?>" class="img-thumbnail preferences-thumbnail"><br /><?php echo $fav_actor['firstName'] . ' ' . $fav_actor['lastName']; ?>
-                                </li>
-                            <?php endforeach ?>
+                            <!-- TODO : mettre une checkbox avant les noms et enlever le style de li-->
+                            <?php if (isset($data['user_actor_preferences'])) : ?>
+                                <?php
+                                foreach ($data['user_actor_preferences'] as $key => $value) : ?>
+                                    <li>
+                                        <img src="<?php echo $value['picture']; ?>" style="max-width: 150px !important; max-height: 150px !important;" alt="<?php echo $value['firstName'] . ' ' . $value['lastName']; ?>" class="img-thumbnail preferences-thumbnail"><br /><?php echo $value['firstName'] . ' ' . $value['lastName']; ?>
+                                    </li>
+                                <?php endforeach ?>
+                            <?php endif ?>
                         </ul>
                         </p>
-                        <a href="#" class="btn btn-primary" id="actor-update" onclick="buttonClick('actor-checkbox')">Modifier mes acteurs préférés</a>
+                        <a href="#" class="btn btn-primary" id="actor-update" onclick="buttonClick('actor-checkbox')">Modifier ou ajouter des acteurs préférés</a>
                     </div>
                 </div>
             </div>
@@ -77,14 +74,16 @@
                     <div class="card-body">
                         <p class="card-text">
                         <ul>
-                            <?php foreach ($user_actor_preferences as $fav_director) : ?>
-                                <li>
-                                    <input type="checkbox" name="director" id="director-checkbox" checked disabled;"><img src=" <?php echo $fav_director['picture']; ?>" style="max-width: 150px !important; max-height:150px !important;" alt="<?php echo $fav_director['firstName'] . ' ' . $fav_director['lastName']; ?>" class="img-thumbnail preferences-thumbnail"><?php echo $fav_director['firstName'] . ' ' . $fav_director['lastName']; ?>
-                                </li>
-                            <?php endforeach ?>
+                            <?php if (isset($data['user_director_preferences'])) : ?>
+                                <?php foreach ($data['user_director_preferences'] as $key => $value) : ?>
+                                    <li>
+                                        <input type="checkbox" name="director" id="director-checkbox" checked disabled;"><img src=" <?php echo $value['picture']; ?>" style="max-width: 150px !important; max-height:150px !important;" alt="<?php echo $value['firstName'] . ' ' . $value['lastName']; ?>" class="img-thumbnail preferences-thumbnail"><?php echo $value['firstName'] . ' ' . $value['lastName']; ?>
+                                    </li>
+                                <?php endforeach ?>
+                            <?php endif ?>
                         </ul>
                         </p>
-                        <a href="#" class="btn btn-primary" id="director-update" onclick="buttonClick('director-checkbox')">Modifier mes réalisateurs préférés</a>
+                        <a href="#" class="btn btn-primary" id="director-update" onclick="buttonClick('director-checkbox')">Modifier ou ajouter des réalisateurs préférés</a>
                     </div>
                 </div>
             </div>

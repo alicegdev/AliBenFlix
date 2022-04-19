@@ -8,6 +8,13 @@ class HomeModel
     public $shows_synopsis = [];
     public $shows_genres = [];
 
+    /**
+     * Checks if user exists in database
+     *
+     * @param [string] $email
+     * @param [string] $password
+     * @return [int] the number of users that have the email and password validated by form
+     */
     public function checkUserLogin($email, $password)
     {
         // avec PDO
@@ -22,18 +29,38 @@ class HomeModel
         }
     }
 
+    public function getUserId($email, $password)
+    {
+        try {
+            $query = "SELECT * FROM alibenflix.user WHERE user.email='{$email}' AND user.user_password='{$password}'";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchColumn();
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+            exit;
+        }
+    }
+    /**
+     * Inserts a new user into database
+     */
+
     public function userRegister($nom, $prenom, $email, $password)
     {
         try {
             $query = "INSERT INTO user (nom, prenom, email, password) VALUES ('" . $nom . "', '" . $prenom . "', '" . $email . "','" . $password . "')";
             $stmt = $this->db->query($query);
+            // créer variable de session user_id
             return 1;
         } catch (\PDOException $e) {
             echo $e->getMessage();
             exit;
         }
     }
-
+    /**
+     * Query of details for the shows recently added -- 3 months ago or more recent
+     *
+     */
     public function carrouselNewShows()
     {
         try {
@@ -50,9 +77,13 @@ class HomeModel
         }
     }
 
+    /**
+     * Query to fetch the genre of shows and movies
+     *
+     * 
+     */
     public function carrouselShowsGenres()
     {
-        // Requête pour avoir les genres des films et des séries
         $genre_query = "SELECT genre.name FROM genre, movie_genre, movie WHERE movie_genre.movie_fk = movie.id AND movie_genre.genreMovie_fk = genre.id";
         $genre_result = $this->db->query($genre_query);
         while ($row = $genre_result->fetch(PDO::FETCH_ASSOC)) {

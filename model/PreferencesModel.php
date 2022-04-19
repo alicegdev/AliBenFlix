@@ -17,22 +17,28 @@ class PreferencesModel
         $user_genre_preferences_results = $this->db->query($user_genre_preferences_query);
         $user_director_preferences_query = "SELECT * FROM realisator INNER JOIN preferences_realisator ON realisator.id = preferences_realisator.realisatorPref_fk INNER JOIN user ON user.id = preferences_realisator.user_fk";
         $user_director_preferences_results = $this->db->query($user_director_preferences_query);
-
-        while ($row = $user_actor_preferences_results->fetch(PDO::FETCH_ASSOC)) {
-            if ($row['user_fk'] == $user_id) {
-                array_push($this->user_actor_preferences, $row);
+        // créer une condition si null
+        if ($user_actor_preferences_results !== null) {
+            while ($row = $user_actor_preferences_results->fetch(PDO::FETCH_ASSOC)) {
+                if ($row['user_fk'] == $user_id) {
+                    array_push($this->user_actor_preferences, $row);
+                }
             }
         }
 
-        while ($row = $user_genre_preferences_results->fetch(PDO::FETCH_ASSOC)) {
-            if ($row['user_fk'] == $user_id) {
-                array_push($this->user_genres_preferences, $row);
+        if ($user_genre_preferences_results !== null) {
+            while ($row = $user_genre_preferences_results->fetch(PDO::FETCH_ASSOC)) {
+                if ($row['user_fk'] == $user_id) {
+                    array_push($this->user_genres_preferences, $row);
+                }
             }
         }
 
-        while ($row = $user_director_preferences_results->fetch(PDO::FETCH_ASSOC)) {
-            if ($row['user_fk'] == $user_id) {
-                array_push($this->user_director_preferences, $row);
+        if ($user_director_preferences_results !== null) {
+            while ($row = $user_director_preferences_results->fetch(PDO::FETCH_ASSOC)) {
+                if ($row['user_fk'] == $user_id) {
+                    array_push($this->user_director_preferences, $row);
+                }
             }
         }
     }

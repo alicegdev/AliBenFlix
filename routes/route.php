@@ -9,4 +9,7 @@ if (isset($_GET['action'])) {
     if ($request == 'preferences') {
         $route = "PreferencesController@getUserPreferences";
     }
+    if ($request == 'preferences_set') {
+        $route = "PreferencesController@setUserPreferences";
+    }
 }

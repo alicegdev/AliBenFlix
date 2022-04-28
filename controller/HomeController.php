@@ -45,15 +45,14 @@ class HomeController extends Controller
             }
             if (empty($password)) {
                 $errors_register['password_error'] = "Veuillez renseigner votre mot de passe";
-            }
-
-            $user_register = $this->model->userRegister($nom, $prenom, $email, md5($password));
-            if ($user_register == 1) {
-                $_SESSION['prenom'] = $prenom;
-                $_SESSION['user_login_status'] = 1;
-                $errors = [];
-                // $_SESSION['email'] = $email;
-                // $_SESSION['password'] = $password;
+            } else {
+                $user_register = $this->model->userRegister($nom, $prenom, $email, md5($password));
+                if ($user_register == 1) {
+                    $_SESSION['prenom'] = $prenom;
+                    $_SESSION['user_login_status'] = 1;
+                    $errors = [];
+                    $errors_register = [];
+                }
             }
         }
 
@@ -82,9 +81,9 @@ class HomeController extends Controller
             return require_once('view/login.php');
         }
 
-        if (isset($errors)) {
+        if (!empty($errors)) {
             $this->render('login', $errors);
-        } elseif (isset($errors_register)) {
+        } elseif (!empty($errors_register)) {
             $this->render('login', $errors_register);
         } else {
             return require_once('view/login.php');

@@ -62,18 +62,10 @@ class PreferencesModel
     {
         $preferences = [$realisator, $actor, $genre];
         foreach ($preferences as $preference) {
-            if ($preference != null) {
-                if ($preference == $actor || $preference == $realisator) {
-                    $query = "SELECT * FROM " . $preference . "  WHERE " . $preference['lastName'] . " = lastName AND " . $preference['firstName'] . " = firstName";
-                    $result = $this->db->query($query);
-                    $insertQuery = "INSERT into " . $preference . " (" . $result['lastName'] . ", " . $result['firstName'] . ", " . $result['picture'] . ")";
-                } else {
-                    $query = "SELECT * FROM genre WHERE " . $preference['name'] . " = name";
-                    $result = $this->db->query($query);
-                    $insertQuery = "INSERT into genre (" . $result['name'] . ")";
-                }
-                $this->db->query($insertQuery);
+            if (!empty($preference)) {
+                // faire une jointure sur les tables
             }
+            // $this->db->query($insertQuery);
         }
     }
 }

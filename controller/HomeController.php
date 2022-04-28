@@ -70,6 +70,7 @@ class HomeController extends Controller
     public function routeManager($errors, $errors_register)
     {
         if (isset($_GET['register'])) {
+            return require_once('view/register.php');
             if (isset($errors)) {
                 $this->render('register', $errors);
             } else {
@@ -79,6 +80,10 @@ class HomeController extends Controller
 
         if (isset($_GET['login']) || isset($_GET['logout'])) {
             return require_once('view/login.php');
+        }
+
+        if (isset($errors)) {
+            $this->render('login', $errors);
         } elseif (isset($errors_register)) {
             $this->render('login', $errors_register);
         } else {

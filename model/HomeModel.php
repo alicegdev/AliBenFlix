@@ -48,7 +48,7 @@ class HomeModel
     public function userRegister($nom, $prenom, $email, $password)
     {
         try {
-            $query = "INSERT INTO user (nom, prenom, email, password) VALUES ('" . $nom . "', '" . $prenom . "', '" . $email . "','" . $password . "')";
+            $query = "INSERT INTO user (nom, prenom, email, user_password) VALUES ('" . $nom . "', '" . $prenom . "', '" . $email . "','" . $password . "')";
             $stmt = $this->db->query($query);
             // créer variable de session user_id
             return 1;

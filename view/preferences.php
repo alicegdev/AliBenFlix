@@ -95,6 +95,7 @@
                         <a href="#" class="btn btn-primary" id="director-update" onclick="buttonClick(' director-checkbox')">Modifier ou ajouter des réalisateurs préférés</a>
                     </div>
                     <form action="" method="POST">
+                        <?php var_dump($_POST['realisator']); ?>
                         <select name="realisator" class="hiddenSelect" id="realisator-select">
                             <option value="">-- Sélectionner un réalisateur à ajouter --</option>
                             <?php foreach ($data['realisator'] as $key => $value) : ?>

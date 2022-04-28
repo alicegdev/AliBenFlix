@@ -18,24 +18,46 @@
 
     <form method="post" action="">
         <div class="input-group">
+
             <label>Nom</label>
             <input type="text" name="nom">
+            <p><?php
+                if (isset($errors_register['nom_error'])) {
+                    echo $errors_register['nom_error'];
+                } ?></p>
         </div>
         <p></p>
         <div class="input-group">
+
             <label>Prénom</label>
             <input type="text" name="prenom">
+            <p>
+                <?php
+                if (isset($errors_register['prenom_error'])) {
+                    echo $errors_register['prenom_error'];
+                } ?>
+            </p>
         </div>
         <p>
         </p>
         <div class="input-group">
+
             <label>Email</label>
             <input type="text" name="email">
+            <p><?php
+                if (isset($errors_register['email_error'])) {
+                    echo $errors_register['email_error'];
+                } ?></p>
         </div>
         <p></p>
         <div class="input-group">
+
             <label>Mot de passe</label>
             <input type="password" name="password">
+            <p><?php
+                if (isset($errors_register['password_error'])) {
+                    echo $errors_register['password_error'];
+                } ?></p>
         </div>
         <p></p>
         <div class="input-group">

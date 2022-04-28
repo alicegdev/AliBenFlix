@@ -24,6 +24,7 @@ class HomeController extends Controller
                     $_SESSION['user_login_status'] = 1;
                     $_SESSION['user_id'] = $this->model->getUserId($email, md5($password));
                     $errors = [];
+                    $errors_register = [];
                 }
             }
         }
@@ -45,7 +46,7 @@ class HomeController extends Controller
             }
             if (empty($password)) {
                 $errors_register['password_error'] = "Veuillez renseigner votre mot de passe";
-            } else {
+            } else if (empty($errors_register)) {
                 $user_register = $this->model->userRegister($nom, $prenom, $email, md5($password));
                 if ($user_register == 1) {
                     $_SESSION['prenom'] = $prenom;

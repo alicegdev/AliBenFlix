@@ -103,6 +103,13 @@
                             <?php endforeach ?>
                         </select>
                         <button type="submit" name="preferences_submit">Valider</button>
+                        <?php $preferences = [$_POST['realisator'], $_POST['actor'], $_POST['genre']];
+                        foreach ($preferences as $key => $value) {
+                            if ($key == $_POST['realisator']) {
+                                echo $value;
+                            }
+                        }
+                        ?>
                     </form>
 
                 </div>

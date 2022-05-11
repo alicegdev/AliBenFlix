@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mer. 23 fév. 2022 à 07:13
+-- Généré le :  mer. 11 mai 2022 à 17:00
 -- Version du serveur :  5.7.17
 -- Version de PHP :  5.6.30
 
@@ -40,8 +40,8 @@ CREATE TABLE `actor` (
 --
 
 INSERT INTO `actor` (`id`, `lastName`, `firstName`, `picture`) VALUES
-(1, 'Pitt', 'Brad', 'null'),
-(2, 'Tarantino', 'Quentin', 'null');
+(1, 'Pitt', 'Brad', 'http://www.cinemapassion.com/photos-personnalites/Brad-Pitt-photo-252.jpg'),
+(2, 'Thurman', 'Uma', 'https://cde.peru.com/ima/0/0/7/9/7/797109.jpg');
 
 -- --------------------------------------------------------
 
@@ -177,27 +177,21 @@ CREATE TABLE `movie_realisator` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `preferences`
---
-
-CREATE TABLE `preferences` (
-  `id` int(11) NOT NULL,
-  `preferencesActor_fk` int(11) NOT NULL,
-  `preferencesRealisator_fk` int(11) NOT NULL,
-  `preferencesGenre_fk` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `preferences_actor`
 --
 
 CREATE TABLE `preferences_actor` (
-  `preferences_fk` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `actorPref_fk` int(11) NOT NULL,
-  `id` int(11) NOT NULL
+  `user_fk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `preferences_actor`
+--
+
+INSERT INTO `preferences_actor` (`id`, `actorPref_fk`, `user_fk`) VALUES
+(1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -207,9 +201,16 @@ CREATE TABLE `preferences_actor` (
 
 CREATE TABLE `preferences_genre` (
   `id` int(11) NOT NULL,
-  `preferences_fk` int(11) NOT NULL,
-  `genrePref_fk` int(11) NOT NULL
+  `genrePref_fk` int(11) NOT NULL,
+  `user_fk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `preferences_genre`
+--
+
+INSERT INTO `preferences_genre` (`id`, `genrePref_fk`, `user_fk`) VALUES
+(1, 7, 2);
 
 -- --------------------------------------------------------
 
@@ -219,9 +220,16 @@ CREATE TABLE `preferences_genre` (
 
 CREATE TABLE `preferences_realisator` (
   `id` int(11) NOT NULL,
-  `preferences_fk` int(11) NOT NULL,
-  `realisatorPref_fk` int(11) NOT NULL
+  `realisatorPref_fk` int(11) NOT NULL,
+  `user_fk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `preferences_realisator`
+--
+
+INSERT INTO `preferences_realisator` (`id`, `realisatorPref_fk`, `user_fk`) VALUES
+(1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -248,6 +256,14 @@ CREATE TABLE `realisator` (
   `picture` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `realisator`
+--
+
+INSERT INTO `realisator` (`id`, `lastName`, `firstName`, `picture`) VALUES
+(1, 'Tarantino', 'Quentin', 'https://media.gettyimages.com/photos/quentin-tarantino-attends-the-closing-ceremony-screening-of-the-the-picture-id1151625686?k=20&m=1151625686&s=612x612&w=0&h=Arxw3b1YDe_m1nhyozLAGB_b09SgfWYbdFCIacVLbVQ='),
+(2, 'Scorsese', 'Martin', 'https://www.bing.com/th?id=ODL.d60237204f8505bc86f092d7a4a8aac7&w=298&h=204&c=12&rs=1&qlt=99&pcl=faf9f7&o=6&pid=13.1');
+
 -- --------------------------------------------------------
 
 --
@@ -269,7 +285,7 @@ CREATE TABLE `user` (
   `nom` varchar(40) NOT NULL,
   `prenom` varchar(40) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(40) NOT NULL,
+  `user_password` varchar(40) NOT NULL,
   `rating_fk` int(11) DEFAULT NULL,
   `lastWatched_fk` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -278,8 +294,12 @@ CREATE TABLE `user` (
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `nom`, `prenom`, `email`, `password`, `rating_fk`, `lastWatched_fk`) VALUES
-(2, 'Goarnisson', 'Alice', 'alice.goarnisson@gmail.com', 'de5949721e6352f01dfef317c3e898a8', NULL, NULL);
+INSERT INTO `user` (`id`, `nom`, `prenom`, `email`, `user_password`, `rating_fk`, `lastWatched_fk`) VALUES
+(2, 'Goarnisson', 'Alice', 'alice.goarnisson@gmail.com', 'de5949721e6352f01dfef317c3e898a8', NULL, NULL),
+(3, 'Brulaire', 'Benjamin', 'benjamin.brulaire@gmail.com', '975029dd20b23af76de814031e8a467d', NULL, NULL),
+(4, 'Martins', 'Antonio', 'antonio.martins@gmail.com', '6eec935362cc86ff5a6d833ca91bc786', NULL, NULL),
+(5, 'Gaillard', 'Martine', 'rosasmart13@gmail.com', '7ebcb1d56c1c442f8a915254daa14fa0', NULL, NULL),
+(9, 'Brulaire', 'Benjamin', 'benjamin.brulaire@gmail.com', '362e115fe52f1d4b4992dc48d4ab7d06', NULL, NULL);
 
 --
 -- Index pour les tables déchargées
@@ -350,38 +370,28 @@ ALTER TABLE `movie_realisator`
   ADD UNIQUE KEY `realisatorMovie_fk` (`realisatorMovie_fk`);
 
 --
--- Index pour la table `preferences`
---
-ALTER TABLE `preferences`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `preferencesActor_fk` (`preferencesActor_fk`),
-  ADD UNIQUE KEY `preferencesRealisator_fk` (`preferencesRealisator_fk`),
-  ADD UNIQUE KEY `preferencesGenre_fk` (`preferencesGenre_fk`);
-
---
 -- Index pour la table `preferences_actor`
 --
 ALTER TABLE `preferences_actor`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `preferences_fk` (`preferences_fk`),
-  ADD UNIQUE KEY `actorPref_fk` (`actorPref_fk`);
+  ADD UNIQUE KEY `actorPref_fk` (`actorPref_fk`),
+  ADD KEY `user_fk` (`user_fk`);
 
 --
 -- Index pour la table `preferences_genre`
 --
 ALTER TABLE `preferences_genre`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `preferences_fk_2` (`preferences_fk`),
-  ADD UNIQUE KEY `genrePref_fk` (`genrePref_fk`),
-  ADD KEY `preferences_fk` (`preferences_fk`);
+  ADD KEY `user_fk` (`user_fk`),
+  ADD KEY `genrePref_fk` (`genrePref_fk`) USING BTREE;
 
 --
 -- Index pour la table `preferences_realisator`
 --
 ALTER TABLE `preferences_realisator`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `preferences_fk` (`preferences_fk`),
-  ADD UNIQUE KEY `realisatorPref_fk` (`realisatorPref_fk`);
+  ADD KEY `realisatorPref_fk` (`realisatorPref_fk`) USING BTREE,
+  ADD KEY `user_fk` (`user_fk`) USING BTREE;
 
 --
 -- Index pour la table `rating`
@@ -454,25 +464,20 @@ ALTER TABLE `movie_rating`
 ALTER TABLE `movie_realisator`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `preferences`
---
-ALTER TABLE `preferences`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT pour la table `preferences_actor`
 --
 ALTER TABLE `preferences_actor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `preferences_genre`
 --
 ALTER TABLE `preferences_genre`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `preferences_realisator`
 --
 ALTER TABLE `preferences_realisator`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pour la table `rating`
 --
@@ -482,7 +487,7 @@ ALTER TABLE `rating`
 -- AUTO_INCREMENT pour la table `realisator`
 --
 ALTER TABLE `realisator`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `suggestion`
 --
@@ -492,7 +497,7 @@ ALTER TABLE `suggestion`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- Contraintes pour les tables déchargées
 --
@@ -529,22 +534,22 @@ ALTER TABLE `movie_realisator`
 -- Contraintes pour la table `preferences_actor`
 --
 ALTER TABLE `preferences_actor`
-  ADD CONSTRAINT `preferences_actor_ibfk_1` FOREIGN KEY (`preferences_fk`) REFERENCES `preferences` (`id`),
-  ADD CONSTRAINT `preferences_actor_ibfk_2` FOREIGN KEY (`actorPref_fk`) REFERENCES `actor` (`id`);
+  ADD CONSTRAINT `preferences_actor_ibfk_2` FOREIGN KEY (`actorPref_fk`) REFERENCES `actor` (`id`),
+  ADD CONSTRAINT `preferences_actor_ibfk_3` FOREIGN KEY (`user_fk`) REFERENCES `user` (`id`);
 
 --
 -- Contraintes pour la table `preferences_genre`
 --
 ALTER TABLE `preferences_genre`
-  ADD CONSTRAINT `preferences_genre_ibfk_1` FOREIGN KEY (`preferences_fk`) REFERENCES `preferences` (`id`),
-  ADD CONSTRAINT `preferences_genre_ibfk_2` FOREIGN KEY (`genrePref_fk`) REFERENCES `genre` (`id`);
+  ADD CONSTRAINT `preferences_genre_ibfk_2` FOREIGN KEY (`genrePref_fk`) REFERENCES `genre` (`id`),
+  ADD CONSTRAINT `preferences_genre_ibfk_3` FOREIGN KEY (`user_fk`) REFERENCES `user` (`id`);
 
 --
 -- Contraintes pour la table `preferences_realisator`
 --
 ALTER TABLE `preferences_realisator`
-  ADD CONSTRAINT `preferences_realisator_ibfk_1` FOREIGN KEY (`preferences_fk`) REFERENCES `preferences` (`id`),
-  ADD CONSTRAINT `preferences_realisator_ibfk_2` FOREIGN KEY (`realisatorPref_fk`) REFERENCES `realisator` (`id`);
+  ADD CONSTRAINT `preferences_realisator_ibfk_2` FOREIGN KEY (`realisatorPref_fk`) REFERENCES `realisator` (`id`),
+  ADD CONSTRAINT `preferences_realisator_ibfk_3` FOREIGN KEY (`user_fk`) REFERENCES `user` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

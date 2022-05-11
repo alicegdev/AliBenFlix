@@ -10,9 +10,9 @@ class PreferencesController extends Controller
             'user_actor_preferences' => $this->model->user_actor_preferences,
             'user_genre_preferences' => $this->model->user_genre_preferences,
             'user_realisator_preferences' => $this->model->user_realisator_preferences,
-            'actors' => $this->model->getAll("actor"),
+            'actor' => $this->model->getAll("actor"),
             'realisator' => $this->model->getAll("realisator"),
-            'genres' => $this->model->getAll("genre")
+            'genre' => $this->model->getAll("genre")
         );
         $this->render('preferences', $data);
     }
@@ -24,21 +24,25 @@ class PreferencesController extends Controller
             if (!empty($_POST['realisator'])) {
                 $realisator = $_POST['realisator'];
                 // ajout d'une ligne datatype
-                $datatype = $realisator;
+                $datatype = 'realisator';
+                $data = $realisator;
             }
             if (!empty($_POST['actor'])) {
                 $actor = $_POST['actor'];
-                $datatype = $actor;
+                $datatype = 'actor';
+                $data = $actor;
             }
             if (!empty($_POST['genre'])) {
                 $genre = $_POST['genre'];
-                $datatype = $genre;
+                $datatype = 'genre';
+                $data = $genre;
             }
+
 
             // Ajouter une ligne dans preferences_$type 
             // Empêcher d'ajouter un doublon
             // Ajouter $datatype pour tester dans la méthode du model plus tard
-            $this->model->setUserPreferences($realisator, $actor, $genre);
+            $this->model->setUserPreferences($datatype, $data);
         }
     }
 

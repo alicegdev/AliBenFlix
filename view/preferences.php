@@ -50,9 +50,18 @@
                         </p>
                         <a href="#" class="btn btn-primary" id="genre-update" onclick="buttonClick('genre-checkbox')">Modifier ou ajouter les genres préférés</a>
                     </div>
+                    <form action="" method="POST">
+                        <select name="genre" class="hiddenSelect" id="actor-select">
+                            <option value="">-- Sélectionner un genre à ajouter --</option>
+                            <?php foreach ($data['genre'] as $key => $value) : ?>
+                                <option value="<?php echo $value['name'] ?>"><?php echo $value['name']; ?></option>
+                            <?php endforeach ?>
+                        </select>
+                        <button type="submit" name="preferences_submit">Valider</button>
+                    </form>
                 </div>
             </div>
-            <div class=" tab-pane fade" id="actors" aria-labelledby="acteurs">
+            <div class=" tab-pane fade" id="actor" aria-labelledby="acteurs">
                 <div class="card">
                     <div class="card-body">
                         <p class="card-text">
@@ -70,12 +79,15 @@
                 </p>
                 <a href="#" class="btn btn-primary" id="actor-update" onclick="buttonClick('actor-checkbox')">Modifier ou ajouter des acteurs préférés</a>
                     </div>
-                    <select name="actors" class="hiddenSelect" id="actor-select">
-                        <option value="">-- Sélectionner un acteur à ajouter --</option>
-                        <?php foreach ($data['actors'] as $key => $value) : ?>
-                            <option value="<?php echo $value['firstName'] . ' ' . $value['lastName']; ?>"><?php echo $value['firstName'] . ' ' . $value['lastName']; ?></option>
-                        <?php endforeach ?>
-                    </select>
+                    <form action="" method="POST">
+                        <select name="actor" class="hiddenSelect" id="actor-select">
+                            <option value="">-- Sélectionner un acteur à ajouter --</option>
+                            <?php foreach ($data['actor'] as $key => $value) : ?>
+                                <option value="<?php echo $value['firstName'] . ' ' . $value['lastName']; ?>"><?php echo $value['firstName'] . ' ' . $value['lastName']; ?></option>
+                            <?php endforeach ?>
+                        </select>
+                        <button type="submit" name="preferences_submit">Valider</button>
+                    </form>
                 </div>
             </div>
             <div class=" tab-pane fade" id="directors" aria-labelledby="realisateurs">
@@ -95,7 +107,6 @@
                         <a href="#" class="btn btn-primary" id="director-update" onclick="buttonClick(' director-checkbox')">Modifier ou ajouter des réalisateurs préférés</a>
                     </div>
                     <form action="" method="POST">
-                        <?php var_dump($_POST['realisator']); ?>
                         <select name="realisator" class="hiddenSelect" id="realisator-select">
                             <option value="">-- Sélectionner un réalisateur à ajouter --</option>
                             <?php foreach ($data['realisator'] as $key => $value) : ?>
@@ -103,13 +114,6 @@
                             <?php endforeach ?>
                         </select>
                         <button type="submit" name="preferences_submit">Valider</button>
-                        <?php $preferences = [$_POST['realisator'], $_POST['actor'], $_POST['genre']];
-                        foreach ($preferences as $key => $value) {
-                            if ($key == $_POST['realisator']) {
-                                echo $value;
-                            }
-                        }
-                        ?>
                     </form>
 
                 </div>

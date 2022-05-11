@@ -58,40 +58,33 @@ class PreferencesModel
         }
     }
 
-    public function setUserPreferences($realisator = null, $actor = null, $genre = null)
+    public function setUserPreferences($datatype, $data)
     {
-        // on créé un tableau avec les trois types de préférences (même si un seul sera rempli)
-        $preferences = [$realisator, $actor, $genre];
-        $selectQuery = '';
-        $selectResults = '';
-        // on boucle sur le tableau préférence pour exécuter certaines conditions selon le type de préférence
-        foreach ($preferences as $preference => $value) {
-            if (!empty($preference) && $preference != null) {
-                $id_fk = 0;
-                $insertQuery = "";
+        try {
+            // on crée une select query vide qui sera accessible à l'intérieur des ifs
+            $selectQuery = '';
+            // on boucle sur le tableau préférence pour exécuter certaines conditions selon le type de préférence
+            $id_fk = 0;
+            $insertQuery = "";
 
-                if ($preference == $realisator || $preference == $actor) {
-                    // si c'est une préférence acteur ou réalisateur, on éclate la chaîne de caractères reçue
-                    // pour pouvoir insérer les valeurs individuellement dans la BDD
-                    $explodedValues = explode(' ', $value);
-                    if ($preference == $realisator) {
-                        $selectQuery = "SELECT id FROM realisator WHERE firstName = " .  $explodedValues[0] . " AND lastName = " .  $explodedValues[1];
-                        $selectResults = $this->db->query($selectQuery);
-                        $id_fk = $selectResults->fetch(PDO::FETCH_ASSOC);
-                        $insertQuery = "INSERT INTO preferences_realisator(realisatorPref_fk, user_fk) VALUES (?, ?)";
-                    } else if ($preference == $actor) {
-                        $selectQuery = "SELECT id FROM actor WHERE firstName = " .  $explodedValues[0] . " AND lastName = " .  $explodedValues[1];
-                        $selectResults = $this->db->query($selectQuery);
-                        $id_fk = $selectResults->fetch(PDO::FETCH_ASSOC);
-                        $insertQuery = "INSERT INTO preferences_actor(actorPref_fk, user_fk) VALUES (?, ?)";
-                    }
-                    // on insère l'id du réalisateur ou de l'acteur + l'id de l'utilisateur dans la table préférence
-                    $stmt = $this->db->prepare($insertQuery);
-                    $stmt->execute([$id_fk, $this->user_id]);
-                }
+            if ($datatype == 'realisator' || $datatype == 'actor') {
+                // si c'est une préférence acteur ou réalisateur, on éclate la chaîne de caractères reçue
+                // pour pouvoir insérer les valeurs individuellement dans la BDD
+                $explodedValues = explode(' ', $data);
+                $selectQuery = "SELECT id FROM " .  $datatype . " WHERE firstName = " .  $explodedValues[0] . " AND lastName = " .  $explodedValues[1];
+            } else if ($datatype == 'genre') {
+                $selectQuery = "SELECT id FROM " .  $datatype . " WHERE name = " .  $data;
             }
-
+            $selectResults = $this->db->query($selectQuery);
+            $id_fk = $selectResults->fetch(PDO::FETCH_ASSOC);
+            $insertQuery = "INSERT INTO preferences_" . $datatype . "(" . $datatype . "Pref_fk, user_fk) VALUES (?, ?)";
+            // on insère l'id du réalisateur ou de l'acteur + l'id de l'utilisateur dans la table préférence
+            $stmt = $this->db->prepare($insertQuery);
+            $stmt->execute([$id_fk, $this->user_id]);
             // $this->db->query($insertQuery);
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+            exit;
         }
     }
 }

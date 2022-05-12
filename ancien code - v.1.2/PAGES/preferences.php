@@ -92,11 +92,9 @@ while ($row = mysqli_fetch_assoc($genre_result)) {
                         <ul>
                             <!-- TODO : mettre une checkbox avant les noms -->
                             <?php while ($row = mysqli_fetch_assoc($user_actor_preferences_results)) : ?>
-                                <?php var_dump($row['user_fk']); ?>
                                 <?php if ($row['user_fk'] != $user_id) : ?>
                                     <li>
 
-                                        <?php var_dump($row['firstName']); ?>
                                         <img src="<?php echo $row['picture']; ?>" style="max-width: 150px !important; max-height: 150px !important;" alt="<?php echo $row['firstName'] . ' ' . $row['lastName']; ?>" class="img-thumbnail preferences-thumbnail"><br /><?php echo $row['firstName'] . ' ' . $row['lastName']; ?>
                                     </li>
                                 <?php endif ?>

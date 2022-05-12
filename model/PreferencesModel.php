@@ -61,27 +61,39 @@ class PreferencesModel
     public function setUserPreferences($datatype, $data)
     {
         try {
-            // on crée une select query vide qui sera accessible à l'intérieur des ifs
-            $selectQuery = '';
-            // on boucle sur le tableau préférence pour exécuter certaines conditions selon le type de préférence
-            $id_fk = 0;
-            $insertQuery = "";
 
-            if ($datatype == 'realisator' || $datatype == 'actor') {
-                // si c'est une préférence acteur ou réalisateur, on éclate la chaîne de caractères reçue
-                // pour pouvoir insérer les valeurs individuellement dans la BDD
-                $explodedValues = explode(' ', $data);
-                $selectQuery = "SELECT id FROM " .  $datatype . " WHERE firstName = " .  $explodedValues[0] . " AND lastName = " .  $explodedValues[1];
+            // si c'est une préférence acteur ou réalisateur, on éclate la chaîne de caractères reçue
+            // pour pouvoir insérer les valeurs individuellement dans la BDD
+            $explodedValues = explode(' ', $data);
+            $firstName = $explodedValues[0];
+            $lastName = $explodedValues[1];
+
+            if ($datatype == 'actor') {
+                // PDO ne permet pas de mettre une variable dans les requêtes pour le nom de la table, on est obligés
+                // de faire 3 conditions et de répéter du code
+                $select = $this->db->prepare("SELECT id FROM actor WHERE firstName = :firstName AND lastName = :lastName ");
+                $select->execute(array('firstName' => $firstName, 'lastName' => $lastName));
+                $result = $select->fetchColumn();
+                $insertQuery = 'INSERT INTO preferences_actor (actorPref_fk, user_fk) VALUES (:id_pref, :user_fk)';
+                // on insère l'id du réalisateur ou de l'acteur + l'id de l'utilisateur dans la table préférence
+                $insert = $this->db->prepare($insertQuery);
+                $insert->execute(array('id_pref' => $result, 'user_fk' => $_SESSION['user_id']));
+            } else if ($datatype == 'realisator') {
+                $select = $this->db->prepare("SELECT id FROM realisator WHERE firstName = :firstName AND lastName = :lastName ");
+                $select->execute(array('firstName' => $firstName, 'lastName' => $lastName));
+                $result = $select->fetchColumn();
+                $insertQuery = 'INSERT INTO preferences_realisator (realisatorPref_fk, user_fk) VALUES (:id_pref, :user_fk)';
+                $insert = $this->db->prepare($insertQuery);
+                $insert->execute(array('id_pref' => $result, 'user_fk' => $_SESSION['user_id']));
             } else if ($datatype == 'genre') {
-                $selectQuery = "SELECT id FROM " .  $datatype . " WHERE name = " .  $data;
+                $name = $data;
+                $select = $this->db->prepare("SELECT id FROM genre WHERE name = :name");
+                $select->execute(array('name' => $name));
+                $result = $select->fetchColumn();
+                $insertQuery = 'INSERT INTO preferences_genre (genrePref_fk, user_fk) VALUES (:id_pref, :user_fk)';
+                $insert = $this->db->prepare($insertQuery);
+                $insert->execute(array('id_pref' => $result, 'user_fk' => $_SESSION['user_id']));
             }
-            $selectResults = $this->db->query($selectQuery);
-            $id_fk = $selectResults->fetch(PDO::FETCH_ASSOC);
-            $insertQuery = "INSERT INTO preferences_" . $datatype . "(" . $datatype . "Pref_fk, user_fk) VALUES (?, ?)";
-            // on insère l'id du réalisateur ou de l'acteur + l'id de l'utilisateur dans la table préférence
-            $stmt = $this->db->prepare($insertQuery);
-            $stmt->execute([$id_fk, $this->user_id]);
-            // $this->db->query($insertQuery);
         } catch (\PDOException $e) {
             echo $e->getMessage();
             exit;

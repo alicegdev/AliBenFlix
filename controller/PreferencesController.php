@@ -38,11 +38,10 @@ class PreferencesController extends Controller
                 $data = $genre;
             }
 
-
-            // Ajouter une ligne dans preferences_$type 
-            // Empêcher d'ajouter un doublon
+            // TODO: Empêcher d'ajouter un doublon
             // Ajouter $datatype pour tester dans la méthode du model plus tard
             $this->model->setUserPreferences($datatype, $data);
+            $this->getUserPreferences();
         }
     }
 

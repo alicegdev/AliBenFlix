@@ -106,13 +106,14 @@
                         </p>
                         <a href="#" class="btn btn-primary" id="director-update" onclick="buttonClick(' director-checkbox')">Modifier ou ajouter des réalisateurs préférés</a>
                     </div>
-                    <form action="" method="POST">
+                    <form action="?action=preferences_set" method="POST">
                         <select name="realisator" class="hiddenSelect" id="realisator-select">
                             <option value="">-- Sélectionner un réalisateur à ajouter --</option>
                             <?php foreach ($data['realisator'] as $key => $value) : ?>
                                 <option value="<?php echo $value['firstName'] . ' ' . $value['lastName']; ?>"><?php echo $value['firstName'] . ' ' . $value['lastName']; ?></option>
                             <?php endforeach ?>
                         </select>
+                        <p><?php echo $_POST['realisator'] ?></p>
                         <button type="submit" name="preferences_submit">Valider</button>
                     </form>
 

@@ -5,5 +5,5 @@ return $config  = [
     'server' => 'localhost',
     'dbname' => 'alibenflix',
     'dbuser' => 'root',
-    'dbpass' => ''
+    'dbpass' => 'root'
 ];

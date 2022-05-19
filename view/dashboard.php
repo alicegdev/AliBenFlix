@@ -53,9 +53,6 @@
                                 $shows_synopsis = $data['shows_synopsis'];
                                 $shows_genres = $data['shows_genres'];
                                 $shows_pics_urls = $data['shows_pics_urls'];
-                                foreach ($shows_names as $show_name) {
-                                    echo $show_name;
-                                }
                                 for ($i = 0; $i < count($shows_names); $i++) : ?>
                                     <div class="carousel-item <?php if ($i == 1) {
                                                                     echo ' active';
@@ -98,7 +95,7 @@
 
 
             <!-- CAROUSEL DES MOVIES STREAMING -->
-            <div class="tab-pane fade show active" id="movies_new_in" role="tabpanel" aria-labelledby="nouveautes_films">
+            <div class="tab-pane fade show active" id="movies_new_in" role="tabpane2" aria-labelledby="nouveautes_films">
                 <div class="d-flex justify-content-between">
                     <div class="col-md-12">
                         <div id="carouselExampleControls2" class="carousel slide container" data-ride="carousel">
@@ -112,28 +109,28 @@
                                 for ($i = 0; $i < count($movies_names); $i++) {
                                 } ?>
 
-                                <!-- <div class="carousel-item row text-center text-lg-left">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <img class="img-fluid img-thumbnail" src="" alt="">
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="card style=" width:100%; height: 500px !important"">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">
-                                                            <p></p>
-                                                        </h5>
-                                                        <h6 class="card-subtitle mb-2 text-muted">, rating</h6>
-                                                        <hr class="my-4">
+                                <div class="carousel-item row text-center text-lg-left">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid img-thumbnail" src="" alt="">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card style=" width:100%; height: 500px !important"">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">
+                                                        <p></p>
+                                                    </h5>
+                                                    <h6 class="card-subtitle mb-2 text-muted">, rating</h6>
+                                                    <hr class="my-4">
 
-                                                        <p class="card-text"></p>
-                                                        <p class="card-text"><a href="#" class="card-link">Donner son avis</a></p>
-                                                        <p class="card-text"><a href="#" class="card-link">Voir la liste des épisodes</a></p>
-                                                    </div>
+                                                    <p class="card-text"></p>
+                                                    <p class="card-text"><a href="#" class="card-link">Donner son avis</a></p>
+                                                    <p class="card-text"><a href="#" class="card-link">Voir la liste des épisodes</a></p>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> -->
+                                    </div>
+                                </div>
                             </div>
                             <a class="carousel-control-prev" href="#carouselExampleControls2" role="button" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>

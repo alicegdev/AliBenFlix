@@ -7,6 +7,10 @@ class HomeModel
     public $shows_pics_urls = [];
     public $shows_synopsis = [];
     public $shows_genres = [];
+    public $movies_names = [];
+    public $movies_pics_urls = [];
+    public $movies_synopsis = [];
+    public $movies_genres = [];
 
     /**
      * Checks if user exists in database
@@ -64,12 +68,20 @@ class HomeModel
     public function carrouselNewShows()
     {
         try {
-            $new_shows_details_query = "SELECT name, picture, synopsis FROM movie WHERE added_at BETWEEN DATE_SUB(NOW(), INTERVAL 3 MONTH) AND NOW()";
+            $new_shows_details_query = "SELECT name, picture, synopsis FROM movie WHERE movie.show = 1 AND added_at BETWEEN DATE_SUB(NOW(), INTERVAL 4 MONTH) AND NOW()";
             $new_shows_details_results = $this->db->query($new_shows_details_query);
             while ($row = $new_shows_details_results->fetch(PDO::FETCH_ASSOC)) {
                 array_push($this->shows_names, $row['name']);
                 array_push($this->shows_pics_urls, $row['picture']);
                 array_push($this->shows_synopsis, $row['synopsis']);
+            };
+
+            $new_movies_details_query = "SELECT name, picture, synopsis FROM movie WHERE movie.show = 0 AND added_at BETWEEN DATE_SUB(NOW(), INTERVAL 4 MONTH) AND NOW()";
+            $new_movies_details_results = $this->db->query($new_movies_details_query);
+            while ($row = $new_movies_details_results->fetch(PDO::FETCH_ASSOC)) {
+                array_push($this->movies_names, $row['name']);
+                array_push($this->movies_pics_urls, $row['picture']);
+                array_push($this->movies_synopsis, $row['synopsis']);
             };
         } catch (\PDOException $e) {
             echo $e->getMessage();
@@ -84,10 +96,15 @@ class HomeModel
      */
     public function carrouselShowsGenres()
     {
-        $genre_query = "SELECT genre.name FROM genre, movie_genre, movie WHERE movie_genre.movie_fk = movie.id AND movie_genre.genreMovie_fk = genre.id";
+        $genre_query = "SELECT genre.name FROM genre, movie_genre, movie WHERE movie.show = 1 AND movie_genre.movie_fk = movie.id AND movie_genre.genreMovie_fk = genre.id";
         $genre_result = $this->db->query($genre_query);
         while ($row = $genre_result->fetch(PDO::FETCH_ASSOC)) {
             array_push($this->shows_genres, $row['name']);
+        };
+        $genre_query2 = "SELECT genre.name FROM genre, movie_genre, movie WHERE movie.show = 0 AND movie_genre.movie_fk = movie.id AND movie_genre.genreMovie_fk = genre.id";
+        $genre_result2 = $this->db->query($genre_query);
+        while ($row = $genre_result->fetch(PDO::FETCH_ASSOC)) {
+            array_push($this->movies_genres, $row['name']);
         };
     }
 }

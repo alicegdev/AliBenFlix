@@ -14,9 +14,7 @@ if (isset($_GET['logout'])) {
 include '../CONNECTION/server.php';
 // On crée une requête pour sélectionner les préférences 
 $user_id = $_SESSION['user_id'];
-$actor_lastName = [];
-$actor_firstName = [];
-$actors_pics = [];
+
 // Requêtes sur les trois tables des préférences utilisateur
 $user_actor_preferences_query = "SELECT * FROM actor INNER JOIN preferences_actor ON actor.id = preferences_actor.actorPref_fk INNER JOIN user ON user.id = preferences_actor.user_fk";
 $user_actor_preferences_results = mysqli_query($db, $user_actor_preferences_query);
@@ -27,6 +25,11 @@ $user_genre_preferences_results = mysqli_query($db, $user_genre_preferences_quer
 $user_director_preferences_query = "SELECT * FROM realisator INNER JOIN preferences_realisator ON realisator.id = preferences_realisator.realisatorPref_fk INNER JOIN user ON user.id = preferences_realisator.user_fk";
 $user_director_preferences_results = mysqli_query($db, $user_director_preferences_query);
 
+$genre_query = "SELECT genre.name FROM genre, movie_genre, movie WHERE movie_genre.movie_fk = movie.id AND movie_genre.genreMovie_fk = genre.id";
+$genre_result = mysqli_query($db, $genre_query);
+while ($row = mysqli_fetch_assoc($genre_result)) {
+    array_push($shows_genres, $row['name']);
+};
 
 ?>
 <!DOCTYPE html>
@@ -89,9 +92,10 @@ $user_director_preferences_results = mysqli_query($db, $user_director_preference
                         <ul>
                             <!-- TODO : mettre une checkbox avant les noms -->
                             <?php while ($row = mysqli_fetch_assoc($user_actor_preferences_results)) : ?>
-                                <?php if ($row['user_fk'] == $user_id) : ?>
+                                <?php if ($row['user_fk'] != $user_id) : ?>
                                     <li>
-                                        <input type="checkbox" name="actor" id="actor-checkbox" checked disabled><img src="<?php echo $row['picture']; ?>" style="max-width: 150px !important; max-height: 150px !important;" alt="<?php echo $row['firstName'] . ' ' . $row['lastName']; ?>" class="img-thumbnail preferences-thumbnail"><?php echo $row['firstName'] . ' ' . $row['lastName']; ?>
+
+                                        <img src="<?php echo $row['picture']; ?>" style="max-width: 150px !important; max-height: 150px !important;" alt="<?php echo $row['firstName'] . ' ' . $row['lastName']; ?>" class="img-thumbnail preferences-thumbnail"><br /><?php echo $row['firstName'] . ' ' . $row['lastName']; ?>
                                     </li>
                                 <?php endif ?>
                             <?php endwhile ?>

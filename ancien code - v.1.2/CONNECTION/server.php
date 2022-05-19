@@ -4,8 +4,13 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 // CONNEXION A LA BASE
-$db = mysqli_connect('localhost', 'root', '', 'alibenflix');
 
+
+// MAC OS
+// $db = mysqli_connect('localhost', 'root', 'root', 'alibenflix');
+
+// WINDOWS
+$db = mysqli_connect('localhost', 'root', '', 'alibenflix');
 
 // initializing variables
 $nom = "";
@@ -64,7 +69,7 @@ if (isset($_POST['reg_user'])) {
         $query = "INSERT INTO user (nom, prenom, email, password) VALUES('$nom', '$prenom', '$email', '$password')";
         mysqli_query($db, $query);
         $_SESSION['success'] = "Vous êtes connecte";
-        header('location: ..\VUES\index.php');
+        header('location: home.php');
     }
 }
 
@@ -97,7 +102,7 @@ if (isset($_POST['login_user'])) {
                 $_SESSION['prenom'] = $row['prenom'];
                 $_SESSION['user_id'] = $row['id'];
             }
-            header('location: index.php');
+            header('location: home.php');
         } else {
             array_push($errors, "Email ou mot de passe incorrect");
         }

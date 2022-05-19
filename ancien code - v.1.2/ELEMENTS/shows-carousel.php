@@ -2,14 +2,21 @@
 <?php
 include '../CONNECTION/server.php';
 // On crée une requête pour sélectionner les films publiés 30 jous avant pour les mettre dans "nouveautés"
-$new_shows_details_query = "SELECT name, picture, synopsis FROM movie WHERE added_at BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOW()";
+$new_shows_details_query = "SELECT name, picture, synopsis FROM movie WHERE movie.shows=1 AND added_at BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOW()";
 $new_shows_details_results = mysqli_query($db, $new_shows_details_query);
+
+$new_movies_details_query = "SELECT name, picture, synopsis FROM movie WHERE movie.shows=0 AND added_at BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOW()";
+$new_movies_details_results = mysqli_query($db, $new_movies_details_query);
 
 // On crée des tableaux vides pour manipuler les urls, noms et synopsis dans la boucle du carrousel
 $shows_pics_urls = [];
 $shows_names = [];
 $shows_synopsis = [];
 $shows_genres = [];
+
+$movie_names = [];
+$movie_synopsis = [];
+$movie_pics_urls = [];
 
 // On transforme les objets de la BDD en strings dans une boucle while et on les pushe dans les 3 tableaux vides qu'on vient de créer
 while ($row = mysqli_fetch_assoc($new_shows_details_results)) {

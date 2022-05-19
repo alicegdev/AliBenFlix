@@ -1,4 +1,6 @@
-<?php include('server.php') ?>
+<?php include('server.php');
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -12,7 +14,7 @@
         <h2>Se connecter</h2>
     </div>
 
-    <form method="post" action="login.php">
+    <form method="post" action="loginAction">
         <?php include('errors.php'); ?>
         <div class="input-group">
             <label>Email</label>
@@ -26,8 +28,9 @@
             <button type="submit" class="btn" name="login_user">Se connecter</button>
         </div>
         <p>
-            Pas encore de compte ? <a href="register.php">S'inscrire</a>
+            Pas encore de compte ? <a href="register">S'inscrire</a>
         </p>
+
     </form>
 </body>
 

@@ -60,6 +60,10 @@ class HomeController extends Controller
         if (isset($_SESSION['user_login_status'])) {
             $this->model->carrouselNewShows();
             $this->model->carrouselShowsGenres();
+            $this->model->suggestByGenre();
+            $this->model->suggestByActor();
+            $this->model->suggestByRealisator();
+
             $data = array(
                 "shows_names" => $this->model->shows_names, "shows_pics_urls" => $this->model->shows_pics_urls, "shows_synopsis" => $this->model->shows_synopsis, "shows_genres" => $this->model->shows_genres,
                 "movies_names" => $this->model->movies_names, "movies_pics_urls" => $this->model->movies_pics_urls, "movies_synopsis" => $this->model->movies_synopsis, "movies_genres" => $this->model->shows_genres

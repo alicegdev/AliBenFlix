@@ -76,7 +76,7 @@ class HomeModel
                 array_push($this->shows_synopsis, $row['synopsis']);
             };
 
-            $new_movies_details_query = "SELECT name, picture, synopsis FROM movie WHERE movie.show = 0 AND added_at BETWEEN DATE_SUB(NOW(), INTERVAL 4 MONTH) AND NOW()";
+            $new_movies_details_query = "SELECT name, picture, synopsis FROM movie WHERE movie.show = 0";
             $new_movies_details_results = $this->db->query($new_movies_details_query);
             while ($row = $new_movies_details_results->fetch(PDO::FETCH_ASSOC)) {
                 array_push($this->movies_names, $row['name']);
@@ -106,5 +106,38 @@ class HomeModel
         while ($row = $genre_result->fetch(PDO::FETCH_ASSOC)) {
             array_push($this->movies_genres, $row['name']);
         };
+    }
+
+    public function suggestByGenre()
+    {
+        $idSelect = 'SELECT movie_genre.movie_fk, movie_genre.genreMovie_fk FROM movie_genre, preferences_genre WHERE movie_genre.genreMovie_fk = preferences_genre.genrePref_fk';
+        $id_results = $this->db->query($idSelect);
+        $id = $id_results->fetchColumn();
+        $movieSelect = 'SELECT * FROM movie WHERE id = :id';
+        $movieSelect2 = $this->db->prepare($movieSelect);
+        $movieSelect2->execute(array('id' => $id));
+        return $movieSelect2;
+    }
+
+    public function suggestByActor()
+    {
+        $idSelect = 'SELECT movie_actor.movie_fk, movie_actor.actorMovie_fk FROM movie_actor, preferences_actor WHERE movie_actor.actorMovie_fk = preferences_actor.actorPref_fk';
+        $id_results = $this->db->query($idSelect);
+        $id = $id_results->fetchColumn();
+        $movieSelect = 'SELECT * FROM movie WHERE id = :id';
+        $movieSelect2 = $this->db->prepare($movieSelect);
+        $movieSelect2->execute(array('id' => $id));
+        return $movieSelect2;
+    }
+
+    public function suggestByRealisator()
+    {
+        $idSelect = 'SELECT movie_realisator.movie_fk, movie_realisator.realisatorMovie_fk FROM movie_realisator, preferences_realisator WHERE movie_realisator.realisatorMovie_fk = preferences_realisator.realisatorPref_fk';
+        $id_results = $this->db->query($idSelect);
+        $id = $id_results->fetchColumn();
+        $movieSelect = 'SELECT * FROM movie WHERE id = :id';
+        $movieSelect2 = $this->db->prepare($movieSelect);
+        $movieSelect2->execute(array('id' => $id));
+        return $movieSelect2;
     }
 }

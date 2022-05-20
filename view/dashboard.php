@@ -98,80 +98,77 @@
             <!-- CAROUSEL DES MOVIES STREAMING -->
             <div class="tab-pane fade show active" id="movies_new_in" role="tabpane2" aria-labelledby="nouveautes_films">
                 <div class="d-flex justify-content-between">
-                    <div class="col-md-12">
-                        <div id="carouselExampleControls2" class="carousel slide container">
+                    <div class="col-md-11">
+                        <div class style="width:100%; height:max-content !important;">
+                            <?php
+                            $movies_names = $data['movies_names'];
+                            $movies_synopsis = $data['movies_synopsis'];
+                            $movies_genres = $data['movies_genres'];
+                            $movies_pics_urls = $data['movies_pics_urls'];
+                            for ($i = 0; $i < count($movies_names); $i++) : ?>
+                                <div class="row text-center text-lg-left">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid img-thumbnail" src="<?php echo $movies_pics_urls[$i] ?>" alt="<?php echo $movies_names[0] ?>">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card" style=" width:100%; height:max-content !important"">
+                                            <div class=" card-body">
+                                                <h5 class="card-title">
+                                                    <p><?php echo $movies_names[$i] ?></p>
+                                                </h5>
+                                                <h6 class="card-subtitle mb-2 text-muted"><?php echo $movies_genres[$i] ?>, rating</h6>
+                                                <hr class="my-4">
 
-                            <div class="carousel-inner role=" listbox" style=" width:100%; height: 500px !important">
-                                <?php
-                                $movies_names = $data['movies_names'];
-                                $movies_synopsis = $data['movies_synopsis'];
-                                $movies_genres = $data['movies_genres'];
-                                $movies_pics_urls = $data['movies_pics_urls'];
-                                for ($i = 0; $i < count($movies_names); $i++) : ?>
-                                    <div class="carousel-item <?php if ($i == 1) {
-                                                                    echo ' active';
-                                                                } ?> row text-center text-lg-left">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <img class="img-fluid img-thumbnail" src="<?php echo $movies_pics_urls[$i] ?>" alt="<?php echo $movies_names[0] ?>">
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="card style=" width:100%; height: 500px !important"">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">
-                                                            <p><?php echo $movies_names[$i] ?></p>
-                                                        </h5>
-                                                        <h6 class="card-subtitle mb-2 text-muted"><?php echo $movies_genres[$i] ?>, rating</h6>
-                                                        <hr class="my-4">
-
-                                                        <p class="card-text"><?php echo $movies_synopsis[$i] ?></p>
-                                                        <p class="card-text"><a href="#" class="card-link">Donner son avis</a></p>
-                                                        <p class="card-text"><a href="#" class="card-link">Voir la liste des épisodes</a></p>
-                                                    </div>
-                                                </div>
+                                                <p class="card-text"><?php echo $movies_synopsis[$i] ?></p>
+                                                <p class="card-text"><a href="#" class="card-link">Donner son avis</a></p>
+                                                <p class="card-text"><a href="#" class="card-link">Voir la liste des épisodes</a></p>
                                             </div>
                                         </div>
                                     </div>
-                                <?php endfor; ?>
-
-                            </div>
-                            <a class="carousel-control-prev" href="#carouselExampleControls2" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Précédent</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleControls2" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Suivant</span>
-                            </a>
+                                </div>
                         </div>
+                    <?php endfor; ?>
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="user_favs" role="tabpane3" aria-labelledby="selon_preferences">
-                <div class="d-flex justify-content-between">
-                    <div class="col-md-12">
-                        <div id="carouselExampleControls3" class="carousel slide container" data-ride="carousel">
+        </div>
+        <!-- <div class="tab-pane fade" id="user_favs" role="tabpane3" aria-labelledby="selon_preferences">
+            <div class="d-flex justify-content-between">
+                <div class="col-md-12">
 
-                            <div class="carousel-inner role=" listbox" style=" width:100%; height: 500px !important">
+                    <div style=" width:100%; height: 500px !important">
+                        <div class="row text-center text-lg-left">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img class="img-fluid img-thumbnail" src="<?php ?>" alt="<?php ?>">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card style=" width:100%; height: 500px !important"">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <p><?php ?></p>
+                                            </h5>
+                                            <h6 class="card-subtitle mb-2 text-muted"><?php ?>, rating</h6>
+                                            <hr class="my-4">
 
+                                            <p class="card-text"><?php ?></p>
+                                            <p class="card-text"><a href="#" class="card-link">Donner son avis</a></p>
+                                            <p class="card-text"><a href="#" class="card-link">Voir la liste des épisodes</a></p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <p class="mb-4 text-center">Et si vous aimeriez voir autre chose...</p> <i class=" fas fa-hand-point-down"></i></p>
-                            <p class="text-center"><a class="btn btn-primary btn-lg" href="?action=preferences" role="button">Modifier vos préférences</a>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleControls3" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Précédent</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleControls3" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Suivant</span>
-                        </a>
+                        <p class="mb-4 text-center">Et si vous aimeriez voir autre chose...</p> <i class=" fas fa-hand-point-down"></i></p>
+                        <p class="text-center"><a class="btn btn-primary btn-lg" href="?action=preferences" role="button">Modifier vos préférences</a>
+
                     </div>
                 </div>
             </div>
 
             </p>
-        </div>
+        </div> -->
     </div>
     </div>
 </body>

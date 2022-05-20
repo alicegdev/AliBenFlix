@@ -116,61 +116,61 @@ class HomeModel
      */
     public function carrouselShowsGenres()
     {
-        $genre_query = "SELECT genre.name FROM genre, movie_genre, movie WHERE movie.show = 1 AND movie_genre.movie_fk = movie.id AND movie_genre.genreMovie_fk = genre.id";
-        $genre_result = $this->db->query($genre_query);
-        while ($row = $genre_result->fetch(PDO::FETCH_ASSOC)) {
-            array_push($this->shows_genres, $row['name']);
-        };
-        $genre_query2 = "SELECT genre.name FROM genre, movie_genre, movie WHERE movie.show = 0 AND movie_genre.movie_fk = movie.id AND movie_genre.genreMovie_fk = genre.id";
-        $genre_result2 = $this->db->query($genre_query);
-        while ($row = $genre_result->fetch(PDO::FETCH_ASSOC)) {
-            array_push($this->movies_genres, $row['name']);
+        try {
+            $genre_query = "SELECT genre.name FROM genre, movie_genre, movie WHERE movie.show = 1 AND movie_genre.movie_fk = movie.id AND movie_genre.genreMovie_fk = genre.id";
+            $genre_result = $this->db->query($genre_query);
+            while ($row = $genre_result->fetch(PDO::FETCH_ASSOC)) {
+                array_push($this->shows_genres, $row['name']);
+            };
+            $genre_query2 = "SELECT genre.name FROM genre, movie_genre, movie WHERE movie.show = 0 AND movie_genre.movie_fk = movie.id AND movie_genre.genreMovie_fk = genre.id";
+            $genre_result2 = $this->db->query($genre_query2);
+            while ($row = $genre_result->fetch(PDO::FETCH_ASSOC)) {
+                array_push($this->movies_genres, $row['name']);
+            };
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+            exit;
+        }
+    }
+
+    public function suggestByGenre()
+    {
+        try {
+            $genreSelect = 'SELECT * FROM movie, preferences_genre, movie_genre WHERE preferences_genre.user_fk = :id AND preferences_genre.genrePref_fk = movie_genre.genreMovie_fk AND movie_genre.movie_fk = movie.id';
+            $movieSelect2 = $this->db->prepare($genreSelect);
+            $movieSelect2->execute(array('id' => $_SESSION['user_id']));
+            while ($row = $movieSelect2->fetch(PDO::FETCH_ASSOC)) {
+                array_push($this->suggested_names, $row['name']);
+                array_push($this->suggested_pics_urls, $row['picture']);
+                array_push($this->suggested_synopsis, $row['synopsis']);
+            };
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+            exit;
+        }
+    }
+
+    public function suggestByActor()
+    {
+        $actorSelect = 'SELECT * FROM movie, preferences_actor, movie_actor WHERE preferences_actor.user_fk = :id AND preferences_actor.actorPref_fk = movie_actor.actorMovie_fk AND movie_actor.movie_fk = movie.id';
+        $movieSelect2 = $this->db->prepare($actorSelect);
+        $movieSelect2->execute(array('id' => $_SESSION['user_id']));
+        while ($row = $movieSelect2->fetch(PDO::FETCH_ASSOC)) {
+            array_push($this->suggested_names, $row['name']);
+            array_push($this->suggested_urls, $row['picture']);
+            array_push($this->suggested_synopsis, $row['synopsis']);
         };
     }
 
-    // public function suggestByGenre()
-    // {
-    //     $idSelect = 'SELECT movie_genre.movie_fk, movie_genre.genreMovie_fk FROM movie_genre, preferences_genre WHERE movie_genre.genreMovie_fk = preferences_genre.genrePref_fk';
-    //     $id_results = $this->db->query($idSelect);
-    //     $id = $id_results->fetchColumn();
-    //     $movieSelect = 'SELECT * FROM movie WHERE id = :id';
-    //     $movieSelect2 = $this->db->prepare($movieSelect);
-    //     $results = $movieSelect2->execute(array('id' => $id));
-    //     while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
-    //         array_push($this->suggested_names, $row['name']);
-    //         array_push($this->suggested_urls, $row['picture']);
-    //         array_push($this->suggested_synopsis, $row['synopsis']);
-    //     };
-    // }
-
-    // public function suggestByActor()
-    // {
-    //     $idSelect = 'SELECT movie_actor.movie_fk, movie_actor.actorMovie_fk FROM movie_actor, preferences_actor WHERE movie_actor.actorMovie_fk = preferences_actor.actorPref_fk';
-    //     $id_results = $this->db->query($idSelect);
-    //     $id = $id_results->fetchColumn();
-    //     $movieSelect = 'SELECT * FROM movie WHERE id = :id';
-    //     $movieSelect2 = $this->db->prepare($movieSelect);
-    //     $movieSelect2->execute(array('id' => $id));
-    //     $results = $movieSelect2->execute(array('id' => $id));
-    //     while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
-    //         array_push($this->suggested_names, $row['name']);
-    //         array_push($this->suggested_urls, $row['picture']);
-    //         array_push($this->suggested_synopsis, $row['synopsis']);
-    //     };
-    // }
-
-    // public function suggestByRealisator()
-    // {
-    //     $idSelect = 'SELECT movie_realisator.movie_fk, movie_realisator.realisatorMovie_fk FROM movie_realisator, preferences_realisator WHERE movie_realisator.realisatorMovie_fk = preferences_realisator.realisatorPref_fk';
-    //     $id_results = $this->db->query($idSelect);
-    //     $id = $id_results->fetchColumn();
-    //     $movieSelect = 'SELECT * FROM movie WHERE id = :id';
-    //     $movieSelect2 = $this->db->prepare($movieSelect);
-    //     $results = $movieSelect2->execute(array('id' => $id));
-    //     while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
-    //         array_push($this->suggested_names, $row['name']);
-    //         array_push($this->suggested_urls, $row['picture']);
-    //         array_push($this->suggested_synopsis, $row['synopsis']);
-    //     };
-    // }
+    public function suggestByRealisator()
+    {
+        $realisatorSelect = 'SELECT * FROM movie, preferences_realisator, movie_realisator WHERE preferences_realisator.user_fk = :id AND preferences_realisator.realisatorPref_fk = movie_realisator.realisatorMovie_fk AND movie_realisator.movie_fk = movie.id';
+        $movieSelect2 = $this->db->prepare($realisatorSelect);
+        $movieSelect2->execute(array('id' => $_SESSION['user_id']));
+        while ($row = $movieSelect2->fetch(PDO::FETCH_ASSOC)) {
+            array_push($this->suggested_names, $row['name']);
+            array_push($this->suggested_urls, $row['picture']);
+            array_push($this->suggested_synopsis, $row['synopsis']);
+        };
+    }
 }

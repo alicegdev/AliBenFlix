@@ -133,7 +133,7 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="tab-pane fade" id="user_favs" role="tabpane3" aria-labelledby="selon_preferences">
+        <!-- <div class="tab-pane fade" id="user_favs" role="tabpane3" aria-labelledby="selon_preferences" id="selon-preferences>
             <div class="d-flex justify-content-between">
                 <div class="col-md-12">
 

@@ -75,3 +75,11 @@
 .navbar-brand {
   margin-left: 3rem;
 }
+
+.welcome, .nav-pills .nav-link  {
+  margin-left: 2.5rem;
+}
+
+#selon-preferences {
+  margin-right: 2.5rem;
+}

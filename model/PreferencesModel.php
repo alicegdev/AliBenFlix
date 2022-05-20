@@ -62,13 +62,14 @@ class PreferencesModel
     {
         try {
 
-            // si c'est une préférence acteur ou réalisateur, on éclate la chaîne de caractères reçue
-            // pour pouvoir insérer les valeurs individuellement dans la BDD
-            $explodedValues = explode(' ', $data);
-            $firstName = $explodedValues[0];
-            $lastName = $explodedValues[1];
+
 
             if ($datatype == 'actor') {
+                // si c'est une préférence acteur ou réalisateur, on éclate la chaîne de caractères reçue
+                // pour pouvoir insérer les valeurs individuellement dans la BDD
+                $explodedValues = explode(' ', $data);
+                $firstName = $explodedValues[0];
+                $lastName = $explodedValues[1];
                 // PDO ne permet pas de mettre une variable dans les requêtes pour le nom de la table, on est obligés
                 // de faire 3 conditions et de répéter du code
                 $select = $this->db->prepare("SELECT id FROM actor WHERE firstName = :firstName AND lastName = :lastName ");
@@ -79,6 +80,9 @@ class PreferencesModel
                 $insert = $this->db->prepare($insertQuery);
                 $insert->execute(array('id_pref' => $result, 'user_fk' => $_SESSION['user_id']));
             } else if ($datatype == 'realisator') {
+                $explodedValues = explode(' ', $data);
+                $firstName = $explodedValues[0];
+                $lastName = $explodedValues[1];
                 $select = $this->db->prepare("SELECT id FROM realisator WHERE firstName = :firstName AND lastName = :lastName ");
                 $select->execute(array('firstName' => $firstName, 'lastName' => $lastName));
                 $result = $select->fetchColumn();

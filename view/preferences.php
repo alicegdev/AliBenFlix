@@ -50,7 +50,7 @@
                         </p>
                         <a href="#" class="btn btn-primary" id="genre-update" onclick="buttonClick('genre-checkbox')">Modifier ou ajouter les genres préférés</a>
                     </div>
-                    <form action="" method="POST">
+                    <form action="?action=preferences_set" method="POST">
                         <select name="genre" class="hiddenSelect" id="actor-select">
                             <option value="">-- Sélectionner un genre à ajouter --</option>
                             <?php foreach ($data['genre'] as $key => $value) : ?>
@@ -79,7 +79,7 @@
                 </p>
                 <a href="#" class="btn btn-primary" id="actor-update" onclick="buttonClick('actor-checkbox')">Modifier ou ajouter des acteurs préférés</a>
                     </div>
-                    <form action="" method="POST">
+                    <form action="?action=preferences_set" method="POST">
                         <select name="actor" class="hiddenSelect" id="actor-select">
                             <option value="">-- Sélectionner un acteur à ajouter --</option>
                             <?php foreach ($data['actor'] as $key => $value) : ?>

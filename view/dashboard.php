@@ -133,26 +133,32 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="tab-pane fade" id="user_favs" role="tabpane3" aria-labelledby="selon_preferences" id="selon-preferences>
-            <div class="d-flex justify-content-between">
-                <div class="col-md-12">
+        <div class="tab-pane fade" id="user_favs" role="tabpane3" aria-labelledby="selon_preferences" id="selon-preferences>
+            <div class=" d-flex justify-content-between">
+            <div class="col-md-12">
 
-                    <div style=" width:100%; height: 500px !important">
+                <div style=" width:100%; height: 500px !important">
+                    <?php
+                    $suggested_names = $data['suggested_names'];
+                    $suggested_synopsis = $data['suggested_synopsis'];
+                    // $suggested_genres = $data['suggested_genres'];
+                    $suggested_pics_urls = $data['suggested_pics_urls'];
+                    for ($i = 0; $i < count($suggested_names); $i++) : ?>
                         <div class="row text-center text-lg-left">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <img class="img-fluid img-thumbnail" src="<?php ?>" alt="<?php ?>">
+                                    <img class="img-fluid img-thumbnail" src="<?php echo $suggested_pics_urls[$i] ?>" alt="<?php $suggested_pics_urls[$i] ?>">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card style=" width:100%; height: 500px !important"">
                                         <div class="card-body">
                                             <h5 class="card-title">
-                                                <p><?php ?></p>
+                                                <p><?php echo $suggested_names[$i] ?></p>
                                             </h5>
                                             <h6 class="card-subtitle mb-2 text-muted"><?php ?>, rating</h6>
                                             <hr class="my-4">
 
-                                            <p class="card-text"><?php ?></p>
+                                            <p class="card-text"><?php $suggested_synopsis[$i] ?></p>
                                             <p class="card-text"><a href="#" class="card-link">Donner son avis</a></p>
                                             <p class="card-text"><a href="#" class="card-link">Voir la liste des épisodes</a></p>
                                         </div>
@@ -160,15 +166,17 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="mb-4 text-center">Et si vous aimeriez voir autre chose...</p> <i class=" fas fa-hand-point-down"></i></p>
-                        <p class="text-center"><a class="btn btn-primary btn-lg" href="?action=preferences" role="button">Modifier vos préférences</a>
+                    <?php endfor; ?>
 
-                    </div>
+                    <p class="mb-4 text-center">Vous aimeriez voir autre chose ?</p> <i class=" fas fa-hand-point-down"></i></p>
+                    <p class="text-center"><a class="btn btn-primary btn-lg" href="?action=preferences" role="button">Modifier vos préférences</a>
+
                 </div>
             </div>
+        </div>
 
-            </p>
-        </div> -->
+        </p>
+    </div>
     </div>
     </div>
 </body>

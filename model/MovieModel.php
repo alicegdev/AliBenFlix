@@ -1,27 +1,45 @@
 <?php
 
-class Movie
+class MovieModel
 {
-    private int $id;
-    private string $name;
-    private string $synopsis;
-    private string $picture;
-    private float $averageRating;
-    private bool $show;
+    public $id;
+    public $name;
+    public $synopsis;
+    public $picture;
+    public $averageRating;
+    public $show;
+    public $season_numbers = [];
 
-    public function __construct($id, $name, $synopsis, $picture, $averageRating, $show)
+    public function getIdByName($showName)
     {
-        $this->$id = $id;
-        $this->$name = $name;
-        $this->$synopsis = $synopsis;
-        $this->$picture = $picture;
-        $this->$averageRating = $averageRating;
-        $this->$show = $show;
+        $this->name = $showName;
+        $select = $this->db->prepare("SELECT id FROM movie WHERE name = :showName");
+        $select->execute(array('showName' => $this->name));
+        $result = $select->fetchColumn();
+        $this->id = $result;
+        return $this->id;
     }
 
-    public function getId()
+    public function getSeasonsByShowName($showName)
     {
-        return $this->id;
+        $this->getIdByName($showName);
+        $select = $this->db->prepare("SELECT * FROM season WHERE show_fk = :showId");
+        $select->execute(array('showId' => $this->id));
+        while ($row = $select->fetch(PDO::FETCH_ASSOC)) {
+            array_push($this->season_numbers, $row);
+        }
+        return $this->season_numbers;
+    }
+
+    public function getEpisodesByShowNameAndSeason($seasonNumber)
+    {
+        $episodes = [];
+        $select = $this->db->prepare("SELECT * FROM episode WHERE season_fk = :seasonNumber AND show_fk = :showId");
+        $select->execute(array('seasonNumber' => $seasonNumber, 'showId' => $this->id));
+        while ($row = $select->fetch(PDO::FETCH_ASSOC)) {
+            array_push($episodes, $row);
+        }
+        return $episodes;
     }
 
     public function getName()

@@ -62,8 +62,6 @@ class PreferencesModel
     {
         try {
 
-
-
             if ($datatype == 'actor') {
                 // si c'est une préférence acteur ou réalisateur, on éclate la chaîne de caractères reçue
                 // pour pouvoir insérer les valeurs individuellement dans la BDD
@@ -102,5 +100,10 @@ class PreferencesModel
             echo $e->getMessage();
             exit;
         }
+    }
+
+    // TODO
+    public function deletePreference()
+    {
     }
 }

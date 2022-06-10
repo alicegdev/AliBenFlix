@@ -22,7 +22,6 @@ class MovieModel
 
     public function getSeasonsByShowName($showName)
     {
-        $this->getIdByName($showName);
         $select = $this->db->prepare("SELECT season_number FROM season WHERE show_fk = :showId");
         $select->execute(array('showId' => $this->id));
         while ($row = $select->fetch(PDO::FETCH_ASSOC)) {

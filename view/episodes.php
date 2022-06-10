@@ -22,7 +22,12 @@
         </h4>
         <?php
         // @TODO : tester ma vue au retour
-        var_dump($data) ?>
+        foreach ($data as $key => $value) {
+            if ($key == 3) {
+                var_dump($value);
+            }
+        }
+        ?>
     </div>
 </body>
 

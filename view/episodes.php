@@ -24,7 +24,10 @@
         // @TODO : tester ma vue au retour
         foreach ($data as $key => $value) {
             if ($key == 3) {
-                var_dump($value);
+                foreach ($value as $val) {
+                    foreach ($val as $v)
+                        var_dump($v['id']);
+                }
             }
         }
         ?>

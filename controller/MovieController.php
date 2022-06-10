@@ -13,7 +13,7 @@ class MovieController extends Controller
             $seasons = $this->model->getSeasonsByShowName($showName);
             $episodes = [];
             foreach ($seasons as $seasonNumber) {
-                $episode_details = $this->model->getEpisodesByShowNameAndSeason(1);
+                $episode_details = $this->model->getEpisodesByShowNameAndSeason($seasonNumber);
                 array_push($episodes, $episode_details);
             }
             $data = [$id, $showName, $seasons, $episodes];

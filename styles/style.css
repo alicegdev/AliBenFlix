@@ -83,3 +83,19 @@
 #selon-preferences {
   margin-right: 2.5rem;
 }
+
+.slash-1 {
+  height: 10px;
+  color: yellow;
+  background-image: linear-gradient(-45deg,
+    transparent,
+    transparent 25%,
+    currentColor 25%,
+    currentColor 50%,
+    transparent 50%,
+    transparent 75%,
+    currentColor 75%);
+  background-size: 10px 10px;
+  width: 250px;
+  margin-bottom: 1rem;
+}

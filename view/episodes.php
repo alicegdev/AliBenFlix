@@ -20,18 +20,59 @@
         <h4 class="d-print-flex">
             <p class="welcome">Episodes</strong></p>
         </h4>
-        <?php
-        // @TODO : tester ma vue au retour
-        foreach ($data as $key => $value) {
-            if ($key == 3) {
-                foreach ($value as $val) {
-                    foreach ($val as $v)
-                        var_dump($v['id']);
-                }
-            }
-        }
-        ?>
-    </div>
+
+        <div class="col-md-12">
+
+            <div style=" width:100%; height: 500px !important">
+                <div class="container">
+                    <div class="row text-center text-lg-left">
+                        <?php for ($i = 0; $i < count($data[2]); $i++) : ?>
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="<?php echo '#collapse' . $i ?>" aria-expanded="true" aria-controls="<?php echo 'collapse' . $i ?>">
+                                            Saison <?php echo $i + 1 ?>
+                                        </button>
+                                    </h2>
+                                    <div id="<?php echo 'collapse' . $i ?>" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <?php foreach ($data as $key => $value) : ?>
+                                                <?php if ($key == 3) : ?>
+                                                    <?php foreach ($value as $val) : ?>
+                                                        <?php foreach ($val as $episode) : ?>
+                                                            <?php if ($episode['season_fk'] == $i + 1) : ?>
+                                                                <div class="row">
+                                                                    <div class="col-md-2"><img src="<?php echo $episode['pic'] ?>" class="media-object img-thumbnail" /></div>
+                                                                    <div class="col-md-10">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <div class="pull-right"><label class="label label-info">vu</label></div>
+                                                                                <span><strong>Episode <?php echo $episode['episode_number'] ?></strong></span> <span class="label label-info"> <?php echo $episode['title'] ?></span><br />
+                                                                                Résumé : <?php echo $episode['summary'] ?> <br />
+                                                                                <br />
+                                                                                <br />
+                                                                                <hr class="slash-1">
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            <?php endif ?>
+                                                        <?php endforeach ?>
+                                                    <?php endforeach ?>
+                                                <?php endif ?>
+                                            <?php endforeach ?>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endfor ?>
+                    </div>
+                </div>
+            </div>
+
 </body>
 
 </html>

@@ -24,7 +24,7 @@ class MovieModel
     {
         $select = $this->db->prepare("SELECT season_number FROM season WHERE show_fk = :showId");
         $select->execute(array('showId' => $this->id));
-        while ($row = $select->fetch(PDO::FETCH_ASSOC)) {
+        while ($row = $select->fetch(PDO::FETCH_COLUMN)) {
             array_push($this->season_numbers, $row);
         }
         return $this->season_numbers;

@@ -160,7 +160,7 @@
                                     <img class="img-fluid img-thumbnail" src="<?php echo $suggested_pics_urls[0] ?>" alt="<?php $suggested_pics_urls[0] ?>">
                                 </div>
                                 <div class="col-md-8">
-                                    <div class="card style=" width:100%; height: 500px !important"">
+                                    <div class="card style=" width:100%; height: 500px !important">
                                         <div class="card-body">
                                             <h5 class="card-title">
                                                 <p><?php echo $suggested_names[0] ?></p>

@@ -15,11 +15,9 @@
 <body>
     <?php include('partials/navbar.php') ?>
     <div class="jumbotron" style="padding-top:1rem">
-        <h4 class="d-print-flex">
-            <h2>Avis</h2>
-        </h4>
 
         <div class="form-container sign-in-container">
+            <h2>Avis</h2>
 
             <form method="post" action="setRating">
                 <div class="input-group">
@@ -66,7 +64,7 @@
                 <p></p>
 
                 <div class="input-group">
-                    <button type="submit" name="rating_submit" style="margin-left:auto">Valider</button>
+                    <button type="submit" name="rating_submit" style="margin-left:auto; margin-bottom:2rem; margin-top:1rem ">Valider</button>
                 </div>
 
             </form>

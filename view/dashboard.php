@@ -184,7 +184,7 @@
                         </div>
 
                         <p class="mb-4 text-center">Vous aimeriez voir autre chose ?</p> <i class=" fas fa-hand-point-down"></i></p>
-                        <p class="text-center"><a class="btn btn-primary btn-lg" href="?action=preferences" role="button">Modifier vos préférences</a>
+                        <p class="text-center"><button class="button-52"><a href="?action=preferences" role="button">Modifier vos préférences</a></button>
 
                     </div>
                 </div>

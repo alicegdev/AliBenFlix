@@ -26,9 +26,9 @@
         <?php include('partials/navbar.php') ?>
     </nav>
     <div class="jumbotron" style="padding-top:1rem">
-        <h4 class="d-print-flex">
+        <h2 class="d-print-flex">
             <p class="welcome">Bienvenue</p>
-        </h4>
+        </h2>
         <hr class="my-4">
         <ul class="nav nav-pills nav-fill mb-4" id="pills-tab" role="tablist">
             <li class="nav-item">

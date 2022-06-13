@@ -20,8 +20,4 @@ class MovieController extends Controller
             $this->render('episodes', $data);
         }
     }
-
-    public function setRating()
-    {
-    }
 }

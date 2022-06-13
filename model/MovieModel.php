@@ -5,6 +5,7 @@ class MovieModel
     public $id;
     public $name;
     public $synopsis;
+    public $genre;
     public $picture;
     public $averageRating;
     public $show;

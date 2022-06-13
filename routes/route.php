@@ -17,4 +17,7 @@ if (isset($_GET['action'])) {
         // rajouter la possibilité de passer un get dans les params
         $route = 'MovieController@getEpisodes';
     }
+    if ($request == 'ratings') {
+        $route = 'RatingController@ratingForm';
+    }
 }

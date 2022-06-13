@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Accueil - Streaming</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="styles/style.css" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
@@ -60,115 +60,139 @@
                                                                 } ?> row text-center text-lg-left">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <img class="img-fluid img-thumbnail" src="<?php echo $shows_pics_urls[$i] ?>" alt="<?php echo $shows_names[0] ?>">
+                                                <img class="img-fluid img-thumbnail" src="<?php echo $shows_pics_urls[$i] ?>" alt="<?php echo $shows_names[$i] ?>">
                                             </div>
                                             <div class="col-md-8">
-                                                <div class="card style=" width:100%; height: 500px !important"">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">
-                                                            <p><?php echo $shows_names[$i] ?></p>
-                                                        </h5>
-                                                        <h6 class="card-subtitle mb-2 text-muted"><?php echo $shows_genres[$i] ?>, rating</h6>
-                                                        <hr class="my-4">
+                                                <div class="card" style=" width:100%; height: 500px !important"">
+                                                    <div class=" card-body">
+                                                    <h5 class="card-title">
+                                                        <p><?php echo $shows_names[$i] ?></p>
+                                                    </h5>
+                                                    <h6 class="card-subtitle mb-2 text-muted"><?php echo $shows_genres[$i] ?>, rating</h6>
+                                                    <hr class="my-4">
 
-                                                        <p class="card-text"><?php echo $shows_synopsis[$i] ?></p>
-                                                        <p class="card-text"><a href="#" class="card-link">Donner son avis</a></p>
-                                                        <p class="card-text"><a href="#" class="card-link">Voir la liste des épisodes</a></p>
-                                                    </div>
+                                                    <p class="card-text"><?php echo $shows_synopsis[$i] ?></p>
+                                                    <form method="post" action="?action=ratings">
+                                                        <input name="show_name_rating" type="hidden" value="<?php echo $shows_names[$i] ?>">
+                                                        <button type="submit" name="show_rating_submit" class="button-52" role="button">Donner son avis</button>
+                                                    </form>
+                                                    <form method="post" action="?action=episodes">
+                                                        <input name="show_name" type="hidden" value="<?php echo $shows_names[$i] ?>">
+                                                        <button type="submit" name="show_name_submit" class="button-52" role="button">Voir la liste des épisodes</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                <?php endfor; ?>
                             </div>
-                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Précédent</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Suivant</span>
-                            </a>
+                        <?php endfor; ?>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- CAROUSEL DES MOVIES STREAMING -->
-            <div class="tab-pane fade show active" id="movies_new_in" role="tabpane2" aria-labelledby="nouveautes_films">
-                <div class="d-flex justify-content-between">
-                    <div class="col-md-11">
-                        <div class style="width:100%; height:max-content !important;">
-                            <?php
-                            $movies_names = $data['movies_names'];
-                            $movies_synopsis = $data['movies_synopsis'];
-                            $movies_genres = $data['movies_genres'];
-                            $movies_pics_urls = $data['movies_pics_urls'];
-                            for ($i = 0; $i < count($movies_names); $i++) : ?>
-                                <div class="row text-center text-lg-left">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <img class="img-fluid img-thumbnail" src="<?php echo $movies_pics_urls[$i] ?>" alt="<?php echo $movies_names[0] ?>">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card" style=" width:100%; height:max-content !important"">
-                                            <div class=" card-body">
-                                                <h5 class="card-title">
-                                                    <p><?php echo $movies_names[$i] ?></p>
-                                                </h5>
-                                                <h6 class="card-subtitle mb-2 text-muted"><?php echo $movies_genres[$i] ?>, rating</h6>
-                                                <hr class="my-4">
-
-                                                <p class="card-text"><?php echo $movies_synopsis[$i] ?></p>
-                                                <p class="card-text"><a href="#" class="card-link">Donner son avis</a></p>
-                                                <p class="card-text"><a href="#" class="card-link">Voir la liste des épisodes</a></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
-                    <?php endfor; ?>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Précédent</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Suivant</span>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- <div class="tab-pane fade" id="user_favs" role="tabpane3" aria-labelledby="selon_preferences" id="selon-preferences>
+
+
+        <!-- CAROUSEL DES MOVIES STREAMING -->
+        <div class="tab-pane fade show active" id="movies_new_in" role="tabpane2" aria-labelledby="nouveautes_films">
             <div class="d-flex justify-content-between">
                 <div class="col-md-12">
+                    <div class style="width:100%; height:max-content !important;">
+                        <div class="container">
+                            <?php
+                            $movies_names = $data['movies_names'];
+                            $movies_synopsis = $data['movies_synopsis'];
+                            $movies_genres = $data['movies_genres'];
+                            $movies_pics_urls = $data['movies_pics_urls']; ?>
+                            <div class="row text-center text-lg-left">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <img class="img-fluid img-thumbnail" src="<?php echo $movies_pics_urls[0] ?>" alt="<?php echo $movies_names[0] ?>">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card" style=" width:100%; height:max-content !important"">
+                                            <div class=" card-body">
+                                            <h5 class="card-title">
+                                                <p><?php echo $movies_names[0] ?></p>
+                                            </h5>
+                                            <h6 class="card-subtitle mb-2 text-muted"><?php echo $movies_genres[0] ?>, rating</h6>
+                                            <hr class="my-4">
 
-                    <div style=" width:100%; height: 500px !important">
+                                            <p class="card-text"><?php echo $movies_synopsis[0] ?></p>
+
+                                            <form method="post" action="?action=ratings">
+                                                <input name="show_name_rating" type="hidden" value="<?php echo $movies_names[0] ?>">
+                                                <button type="submit" class="button-52" name="show_rating_submit">Donner son avis</button>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="user_favs" role="tabpane3" aria-labelledby="selon_preferences" id="selon-preferences">
+        <div class=" d-flex justify-content-between">
+            <div class="col-md-12">
+
+                <div style=" width:100%; height: 500px !important">
+                    <div class="container">
+                        <?php
+                        $suggested_names = $data['suggested_names'];
+                        $suggested_synopsis = $data['suggested_synopsis'];
+                        // $suggested_genres = $data['suggested_genres'];
+                        $suggested_pics_urls = $data['suggested_pics_urls']; ?>
                         <div class="row text-center text-lg-left">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <img class="img-fluid img-thumbnail" src="<?php ?>" alt="<?php ?>">
+                                    <img class="img-fluid img-thumbnail" src="<?php echo $suggested_pics_urls[0] ?>" alt="<?php $suggested_pics_urls[0] ?>">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card style=" width:100%; height: 500px !important"">
                                         <div class="card-body">
                                             <h5 class="card-title">
-                                                <p><?php ?></p>
+                                                <p><?php echo $suggested_names[0] ?></p>
                                             </h5>
                                             <h6 class="card-subtitle mb-2 text-muted"><?php ?>, rating</h6>
                                             <hr class="my-4">
 
-                                            <p class="card-text"><?php ?></p>
-                                            <p class="card-text"><a href="#" class="card-link">Donner son avis</a></p>
-                                            <p class="card-text"><a href="#" class="card-link">Voir la liste des épisodes</a></p>
+                                            <p class="card-text"><?php $suggested_synopsis[0] ?></p>
+                                            <form method="post" action="?action=ratings">
+                                                <input name="show_name_rating" type="hidden" value="<?php echo $suggested_names[0] ?>">
+                                                <button type="submit" name="show_rating_submit" class="button-52">Donner son avis</button>
+                                            </form>
+                                            <form method="post" action="?action=episodes">
+                                                <input name="show_name" type="hidden" value="<?php echo $suggested_names[0] ?>">
+                                                <button type="submit" name="show_name_submit" class="button-52">Voir la liste des épisodes</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <p class="mb-4 text-center">Et si vous aimeriez voir autre chose...</p> <i class=" fas fa-hand-point-down"></i></p>
+
+                        <p class="mb-4 text-center">Vous aimeriez voir autre chose ?</p> <i class=" fas fa-hand-point-down"></i></p>
                         <p class="text-center"><a class="btn btn-primary btn-lg" href="?action=preferences" role="button">Modifier vos préférences</a>
 
                     </div>
                 </div>
             </div>
+        </div>
 
-            </p>
-        </div> -->
+        </p>
+    </div>
     </div>
     </div>
 </body>

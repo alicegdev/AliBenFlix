@@ -13,7 +13,7 @@
 
 <body>
 
-    <div class="form-container sign-in-container">
+    <div class="form-container login-container">
         <form method="post">
             <h1>Se connecter</h1>
             <input type="email" placeholder="Email" name="email" />

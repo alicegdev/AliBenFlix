@@ -13,59 +13,62 @@
 </head>
 
 <body>
-    <div class="header">
-        <h2>Avis</h2>
+    <?php include('partials/navbar.php') ?>
+    <div class="jumbotron" style="padding-top:1rem">
+        <h4 class="d-print-flex">
+            <p class="welcome">Avis</p>
+        </h4>
+
+        <form method="post" action="setRating">
+            <div class="input-group">
+
+                <label>Votre pseudo</label>
+                <input type="text" name="login">
+                <p></p>
+            </div>
+            <p></p>
+            <div class="input-group">
+                <label>Nom de la série / du film</label>
+                <input type="text" name="film_name" value="<?php echo $data[0] ?>" disabled>
+                <p>
+                </p>
+            </div>
+            <div class="input-group">
+                <input type="hidden" name="film_id" value="<?php echo $data[1] ?>">
+                <p>
+                </p>
+            </div>
+            <p>
+            </p>
+            <div class="input-group">
+
+                <label>Note</label>
+                <select name="stars" id="stars">
+                    <option value="1">⭐</option>
+                    <option value="2">⭐⭐</option>
+                    <option value="3">⭐⭐⭐</option>
+                    <option value="4">⭐⭐⭐⭐</option>
+                    <option value="5">⭐⭐⭐⭐⭐</option>
+                </select>
+
+                <p></p>
+            </div>
+            <p></p>
+            <div class="input-group">
+
+                <label>Commentaire</label>
+                <input type="textarea" name="comment" style="height:100px; width:350px;">
+                <p></p>
+
+            </div>
+            <p></p>
+
+            <div class="input-group">
+                <button type="submit" class="btn" name="rating_submit">Valider</button>
+            </div>
+
+        </form>
     </div>
-
-    <form method="post" action="setRating">
-        <div class="input-group">
-
-            <label>Votre pseudo</label>
-            <input type="text" name="login">
-            <p></p>
-        </div>
-        <p></p>
-        <div class="input-group">
-            <label>Nom de la série / du film</label>
-            <input type="text" name="film_name" value="<?php echo $data[0] ?>" disabled>
-            <p>
-            </p>
-        </div>
-        <div class="input-group">
-            <input type="hidden" name="film_id" value="<?php echo $data[1] ?>">
-            <p>
-            </p>
-        </div>
-        <p>
-        </p>
-        <div class="input-group">
-
-            <label>Note</label>
-            <select name="stars" id="stars">
-                <option value="1">⭐</option>
-                <option value="2">⭐⭐</option>
-                <option value="3">⭐⭐⭐</option>
-                <option value="4">⭐⭐⭐⭐</option>
-                <option value="5">⭐⭐⭐⭐⭐</option>
-            </select>
-
-            <p></p>
-        </div>
-        <p></p>
-        <div class="input-group">
-
-            <label>Commentaire</label>
-            <input type="textarea" name="comment" style="height:100px; width:350px;">
-            <p></p>
-
-        </div>
-        <p></p>
-
-        <div class="input-group">
-            <button type="submit" class="btn" name="rating_submit">Valider</button>
-        </div>
-
-    </form>
 </body>
 
 </html>

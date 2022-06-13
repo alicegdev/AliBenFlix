@@ -79,7 +79,7 @@
 
 .slash-1 {
   height: 10px;
-  color: yellow;
+  color: black;
   background-image: linear-gradient(-45deg,
     transparent,
     transparent 25%,
@@ -124,6 +124,10 @@
 .rating span.checked ~ span label {
     background:#F90;
     color:#FFF;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show >.nav-link {
+  background-color: #212529;
 }
 
 /* CSS */
@@ -172,6 +176,10 @@
   transform: translateY(0);
 }
 
+.welcome {
+  text-align: center;
+}
 /* TAB */
 
 /* CSS */
+

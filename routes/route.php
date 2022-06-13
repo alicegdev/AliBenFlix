@@ -13,9 +13,6 @@ if (isset($_GET['action'])) {
     if ($request == 'preferences_set') {
         $route = "PreferencesController@setUserPreferences";
     }
-<<<<<<< HEAD
-}
-=======
     if ($request == 'episodes') {
         // rajouter la possibilité de passer un get dans les params
         $route = 'MovieController@getEpisodes';
@@ -24,4 +21,3 @@ if (isset($_GET['action'])) {
         $route = 'RatingController@ratingForm';
     }
 }
->>>>>>> origin/alice

@@ -21,29 +21,32 @@ class RatingModel
         try {
             $query = $this->db->prepare("INSERT INTO rating (stars, comment, movie_fk, user_fk) VALUES (:stars, :comment, :movie_fk, :user_fk)");
             $query->execute(array('stars' => $stars, 'comment' => $comment, 'movie_fk' => $film_id, 'user_fk' => $user_id));
+            $this->calculateAvgOfRatings($film_id, $user_id);
         } catch (\PDOException $e) {
             echo $e->getMessage();
             exit;
         }
+    }
 
-        // try {
-        //     // faire une deuxième requête pour calculer la moyenne du film
-        //     $allStars = $this->db->prepare("SELECT * FROM rating WHERE user_fk =:user_fk AND movie_fk =:film_id");
-        //     $allStars->execute(array('user_fk' => $user_id, 'movie_fk' => $film_id));
-        //     $ratingCount = 0;
-        //     $ratingStars = [];
-        //     $ratingTotal = 0;
-        //     while ($row = $allStars->fetch(PDO::FETCH_ASSOC)) {
-        //         $ratingCount++;
-        //         $ratingTotal = $ratingTotal + $row['stars'];
-        //     }
-        //     $filmAvg = $ratingTotal / $ratingCount;
-        //     // updater la moyenne dans la table films
-        //     $updateRating = $this->db->prepare("UPDATE movie SET averageRating = :averageRating WHERE id = :movie_id");
-        //     $updateRating->execute(array('averageRating' => $filmAvg, 'movie_id' => $film_id));
-        // } catch (\PDOException $e) {
-        //     echo $e->getMessage();
-        //     exit;
-        // }
+    public function calculateAvgOfRatings($film_id, $user_id)
+    {
+        try {
+            // faire une deuxième requête pour calculer la moyenne du film
+            $allStars = $this->db->prepare("SELECT * FROM rating WHERE user_fk = :user_fk AND movie_fk = :movie_fk");
+            $allStars->execute(array('user_fk' => $user_id, 'movie_fk' => $film_id));
+            $ratingCount = 0;
+            $ratingTotal = 0;
+            while ($row = $allStars->fetch(PDO::FETCH_ASSOC)) {
+                $ratingCount++;
+                $ratingTotal = $ratingTotal + $row['stars'];
+            }
+            $filmAvg = $ratingTotal / $ratingCount;
+            // updater la moyenne dans la table films
+            $updateRating = $this->db->prepare("UPDATE movie SET averageRating = :averageRating WHERE id = :movie_id");
+            $updateRating->execute(array('averageRating' => $filmAvg, 'movie_id' => $film_id));
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+            exit;
+        }
     }
 }

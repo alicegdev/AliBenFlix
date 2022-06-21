@@ -19,4 +19,7 @@ if (isset($_GET['action'])) {
     if ($request == 'ratings') {
         $route = 'RatingController@ratingForm';
     }
+    if ($request == 'setRating') {
+        $route = 'RatingController@setRating';
+    }
 }

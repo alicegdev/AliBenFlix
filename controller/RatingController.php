@@ -23,6 +23,10 @@ class RatingController extends Controller
             $stars = $_POST['stars'];
             $comment = $_POST['comment'];
             $film_name = $_POST['film_name'];
+            $film_id = intval($this->model->getMovieIdByName($film_name));
+            $this->model->setRating($film_id, $stars, $comment, $user_id);
+            $data = "Votre avis a bien été pris en compte.";
+            $this->render('rating_confirm', $data);
         }
     }
 }

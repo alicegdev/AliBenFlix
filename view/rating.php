@@ -19,9 +19,8 @@
         <div class="form-container sign-in-container">
             <h2>Avis</h2>
 
-            <form method="post" action="setRating">
+            <form method="post" action="?action=setRating">
                 <div class="input-group">
-
                     <label>Votre pseudo</label>
                     <input type="text" name="login">
                     <p></p>
@@ -29,7 +28,7 @@
                 <p></p>
                 <div class="input-group">
                     <label>Nom de la série / du film</label>
-                    <input type="text" name="film_name" value="<?php echo $data[0] ?>" disabled>
+                    <input type="text" name="film_name" value="<?php echo $data[0] ?>" readonly>
                     <p>
                     </p>
                 </div>

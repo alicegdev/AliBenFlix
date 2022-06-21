@@ -9,6 +9,9 @@ class HomeController extends Controller
         $errors_register = array();
         if (isset($_GET['logout'])) {
             unset($_SESSION['user_login_status']);
+            unset($_SESSION['user_id']);
+            unset($_SESSION['prenom']);
+            unset($_SESSION['email']);
         }
         if (isset($_POST['login_submit'])) {
             $email = $_POST['email'];

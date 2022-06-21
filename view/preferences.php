@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="../styles/style.css" type="text/css">
+    <link rel="stylesheet" href="styles/inside-app-form.css" type="text/css">
+    <link rel="stylesheet" href="styles/style.css" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/86bd08429f.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -18,7 +19,7 @@
 
     <div class="col-md-12 text-center">
         <h4 class="d-print-flex">
-            <p class="welcome">Mes préférences</strong></p>
+            <h2>Mes préférences</h2>
         </h4>
         <ul class="nav nav-pills nav-fill mb-4" id="pills-tab" role="tablist">
             <li class="nav-item">
@@ -48,7 +49,6 @@
                             <?php endif ?>
                         </ul>
                         </p>
-                        <a href="#" class="btn btn-primary" id="genre-update" onclick="buttonClick('genre-checkbox')">Modifier ou ajouter les genres préférés</a>
                     </div>
                     <form action="?action=preferences_set" method="POST">
                         <select name="genre" class="hiddenSelect" id="actor-select">
@@ -77,7 +77,6 @@
                     <?php endforeach ?>
                 <?php endif ?>
                 </p>
-                <a href="#" class="btn btn-primary" id="actor-update" onclick="buttonClick('actor-checkbox')">Modifier ou ajouter des acteurs préférés</a>
                     </div>
                     <form action="?action=preferences_set" method="POST">
                         <select name="actor" class="hiddenSelect" id="actor-select">
@@ -104,7 +103,6 @@
                             <?php endif ?>
                         </ul>
                         </p>
-                        <a href="#" class="btn btn-primary" id="director-update" onclick="buttonClick(' director-checkbox')">Modifier ou ajouter des réalisateurs préférés</a>
                     </div>
                     <form action="?action=preferences_set" method="POST">
                         <select name="realisator" class="hiddenSelect" id="realisator-select">
@@ -113,7 +111,6 @@
                                 <option value="<?php echo $value['firstName'] . ' ' . $value['lastName']; ?>"><?php echo $value['firstName'] . ' ' . $value['lastName']; ?></option>
                             <?php endforeach ?>
                         </select>
-                        <p><?php echo $_POST['realisator'] ?></p>
                         <button type="submit" name="preferences_submit">Valider</button>
                     </form>
 

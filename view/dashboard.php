@@ -26,9 +26,9 @@
         <?php include('partials/navbar.php') ?>
     </nav>
     <div class="jumbotron" style="padding-top:1rem">
-        <h4 class="d-print-flex">
+        <h2 class="d-print-flex">
             <p class="welcome">Bienvenue</p>
-        </h4>
+        </h2>
         <hr class="my-4">
         <ul class="nav nav-pills nav-fill mb-4" id="pills-tab" role="tablist">
             <li class="nav-item">
@@ -54,6 +54,7 @@
                                 $shows_synopsis = $data['shows_synopsis'];
                                 $shows_genres = $data['shows_genres'];
                                 $shows_pics_urls = $data['shows_pics_urls'];
+                                $shows_avgRatings = $data['shows_avgRatings'];
                                 for ($i = 0; $i < count($shows_names); $i++) : ?>
                                     <div class="carousel-item <?php if ($i == 1) {
                                                                     echo ' active';
@@ -68,7 +69,7 @@
                                                     <h5 class="card-title">
                                                         <p><?php echo $shows_names[$i] ?></p>
                                                     </h5>
-                                                    <h6 class="card-subtitle mb-2 text-muted"><?php echo $shows_genres[$i] ?>, rating</h6>
+                                                    <h6 class="card-subtitle mb-2 text-muted"><?php echo $shows_genres[$i] . ', ' . $shows_avgRatings[0]  ?></h6>
                                                     <hr class="my-4">
 
                                                     <p class="card-text"><?php echo $shows_synopsis[$i] ?></p>
@@ -105,35 +106,34 @@
         <div class="tab-pane fade show active" id="movies_new_in" role="tabpane2" aria-labelledby="nouveautes_films">
             <div class="d-flex justify-content-between">
                 <div class="col-md-12">
-                    <div class style="width:100%; height:max-content !important;">
-                        <div class="container">
-                            <?php
-                            $movies_names = $data['movies_names'];
-                            $movies_synopsis = $data['movies_synopsis'];
-                            $movies_genres = $data['movies_genres'];
-                            $movies_pics_urls = $data['movies_pics_urls']; ?>
-                            <div class="row text-center text-lg-left">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <img class="img-fluid img-thumbnail" src="<?php echo $movies_pics_urls[0] ?>" alt="<?php echo $movies_names[0] ?>">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card" style=" width:100%; height:max-content !important"">
+                    <div class="container">
+                        <?php
+                        $movies_names = $data['movies_names'];
+                        $movies_synopsis = $data['movies_synopsis'];
+                        $movies_genres = $data['movies_genres'];
+                        $movies_pics_urls = $data['movies_pics_urls'];
+                        $movies_avgRatings = $data['movies_avgRatings']; ?>
+                        <div class="row text-center text-lg-left">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img class="img-fluid img-thumbnail" src="<?php echo $movies_pics_urls[0] ?>" alt="<?php echo $movies_names[0] ?>">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card" style=" width:100%; height:max-content !important"">
                                             <div class=" card-body">
-                                            <h5 class="card-title">
-                                                <p><?php echo $movies_names[0] ?></p>
-                                            </h5>
-                                            <h6 class="card-subtitle mb-2 text-muted"><?php echo $movies_genres[0] ?>, rating</h6>
-                                            <hr class="my-4">
+                                        <h5 class="card-title">
+                                            <p><?php echo $movies_names[0] ?></p>
+                                        </h5>
+                                        <h6 class="card-subtitle mb-2 text-muted"><?php echo $movies_genres[0] . ', ' . $movies_avgRatings[0] ?></h6>
+                                        <hr class="my-4">
 
-                                            <p class="card-text"><?php echo $movies_synopsis[0] ?></p>
+                                        <p class="card-text"><?php echo $movies_synopsis[0] ?></p>
 
-                                            <form method="post" action="?action=ratings">
-                                                <input name="show_name_rating" type="hidden" value="<?php echo $movies_names[0] ?>">
-                                                <button type="submit" class="button-52" name="show_rating_submit">Donner son avis</button>
-                                            </form>
+                                        <form method="post" action="?action=ratings">
+                                            <input name="show_name_rating" type="hidden" value="<?php echo $movies_names[0] ?>">
+                                            <button type="submit" class="button-52" name="show_rating_submit">Donner son avis</button>
+                                        </form>
 
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -153,33 +153,37 @@
                         $suggested_names = $data['suggested_names'];
                         $suggested_synopsis = $data['suggested_synopsis'];
                         // $suggested_genres = $data['suggested_genres'];
-                        $suggested_pics_urls = $data['suggested_pics_urls']; ?>
+                        $suggested_pics_urls = $data['suggested_pics_urls'];
+                        $suggested_avgRatings = $data['suggested_avgRatings'];
+                        ?>
                         <div class="row text-center text-lg-left">
                             <div class="row">
-                                <div class="col-md-4">
-                                    <img class="img-fluid img-thumbnail" src="<?php echo $suggested_pics_urls[0] ?>" alt="<?php $suggested_pics_urls[0] ?>">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card style=" width:100%; height: 500px !important"">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <p><?php echo $suggested_names[0] ?></p>
-                                            </h5>
-                                            <h6 class="card-subtitle mb-2 text-muted"><?php ?>, rating</h6>
-                                            <hr class="my-4">
+                                <?php if (!empty($data['suggested_names'])) : ?>
+                                    <div class="col-md-4">
+                                        <img class="img-fluid img-thumbnail" src="<?php echo $suggested_pics_urls[0] ?>" alt="<?php $suggested_pics_urls[0] ?>">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card style=" width:100%; height: 500px !important">
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <p><?php echo $suggested_names[0] ?></p>
+                                                </h5>
+                                                <h6 class="card-subtitle mb-2 text-muted"><?php echo 'genre, ' . $suggested_avgRatings[0] ?></h6>
+                                                <hr class="my-4">
 
-                                            <p class="card-text"><?php $suggested_synopsis[0] ?></p>
-                                            <form method="post" action="?action=ratings">
-                                                <input name="show_name_rating" type="hidden" value="<?php echo $suggested_names[0] ?>">
-                                                <button type="submit" name="show_rating_submit" class="button-52">Donner son avis</button>
-                                            </form>
-                                            <form method="post" action="?action=episodes">
-                                                <input name="show_name" type="hidden" value="<?php echo $suggested_names[0] ?>">
-                                                <button type="submit" name="show_name_submit" class="button-52">Voir la liste des épisodes</button>
-                                            </form>
+                                                <p class="card-text"><?php echo $suggested_synopsis[0] ?></p>
+                                                <form method="post" action="?action=ratings">
+                                                    <input name="show_name_rating" type="hidden" value="<?php echo $suggested_names[0] ?>">
+                                                    <button type="submit" name="show_rating_submit" class="button-52">Donner son avis</button>
+                                                </form>
+                                                <form method="post" action="?action=episodes">
+                                                    <input name="show_name" type="hidden" value="<?php echo $suggested_names[0] ?>">
+                                                    <button type="submit" name="show_name_submit" class="button-52">Voir la liste des épisodes</button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                <?php endif ?>
                             </div>
                         </div>
 

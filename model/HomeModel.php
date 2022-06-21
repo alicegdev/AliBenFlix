@@ -14,6 +14,10 @@ class HomeModel
     public $suggested_names = [];
     public $suggested_pics_urls = [];
     public $suggested_synopsis = [];
+    public $shows_avgRatings = [];
+    public $movies_avgRatings = [];
+    public $suggested_avgRatings = [];
+
 
 
     /**
@@ -28,6 +32,26 @@ class HomeModel
         // avec PDO
         try {
             $query = "SELECT COUNT(*) FROM alibenflix.user WHERE user.email='{$email}' AND user.user_password='{$password}'";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchColumn();
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+            exit;
+        }
+    }
+
+    /**
+     * Checks if email already exists
+     *
+     * @param [string] $email
+     * @return [int] the number of users that have the email validated by form
+     */
+    public function checkUserEmail($email)
+    {
+        // avec PDO
+        try {
+            $query = "SELECT COUNT(*) FROM alibenflix.user WHERE user.email='{$email}'";
             $stmt = $this->db->prepare($query);
             $stmt->execute();
             return $stmt->fetchColumn();
@@ -72,20 +96,30 @@ class HomeModel
     public function carrouselNewShows()
     {
         try {
-            $new_shows_details_query = "SELECT name, picture, synopsis FROM movie WHERE movie.show = 1 AND added_at BETWEEN DATE_SUB(NOW(), INTERVAL 4 MONTH) AND NOW()";
+            $new_shows_details_query = "SELECT * FROM movie WHERE movie.show = 1";
             $new_shows_details_results = $this->db->query($new_shows_details_query);
             while ($row = $new_shows_details_results->fetch(PDO::FETCH_ASSOC)) {
                 array_push($this->shows_names, $row['name']);
                 array_push($this->shows_pics_urls, $row['picture']);
                 array_push($this->shows_synopsis, $row['synopsis']);
+                if ($row['averageRating'] != null) {
+                    array_push($this->shows_avgRatings, $row['averageRating']);
+                } else {
+                    array_push($this->shows_avgRatings, "Pas de note");
+                }
             };
 
-            $new_movies_details_query = "SELECT name, picture, synopsis FROM movie WHERE movie.show = 0";
+            $new_movies_details_query = "SELECT * FROM movie WHERE movie.show = 0";
             $new_movies_details_results = $this->db->query($new_movies_details_query);
             while ($row = $new_movies_details_results->fetch(PDO::FETCH_ASSOC)) {
                 array_push($this->movies_names, $row['name']);
                 array_push($this->movies_pics_urls, $row['picture']);
                 array_push($this->movies_synopsis, $row['synopsis']);
+                if ($row['averageRating'] != null) {
+                    array_push($this->movies_avgRatings, $row['averageRating']);
+                } else {
+                    array_push($this->movies_avgRatings, "Pas de note");
+                }
             };
         } catch (\PDOException $e) {
             echo $e->getMessage();
@@ -143,6 +177,11 @@ class HomeModel
                 array_push($this->suggested_names, $row['name']);
                 array_push($this->suggested_pics_urls, $row['picture']);
                 array_push($this->suggested_synopsis, $row['synopsis']);
+                if ($row['averageRating'] != null) {
+                    array_push($this->suggested_avgRatings, $row['averageRating']);
+                } else {
+                    array_push($this->suggested_avgRatings, "Pas de note");
+                }
             };
         } catch (\PDOException $e) {
             echo $e->getMessage();
@@ -159,6 +198,11 @@ class HomeModel
             array_push($this->suggested_names, $row['name']);
             array_push($this->suggested_urls, $row['picture']);
             array_push($this->suggested_synopsis, $row['synopsis']);
+            if ($row['averageRating'] != null) {
+                array_push($this->suggested_avgRatings, $row['averageRating']);
+            } else {
+                array_push($this->suggested_avgRatings, "Pas de note");
+            }
         };
     }
 
@@ -171,6 +215,12 @@ class HomeModel
             array_push($this->suggested_names, $row['name']);
             array_push($this->suggested_urls, $row['picture']);
             array_push($this->suggested_synopsis, $row['synopsis']);
+            array_push($this->suggested_avgRatings, $row['averageRating']);
+            if ($row['averageRating'] != null) {
+                array_push($this->suggested_avgRatings, $row['averageRating']);
+            } else {
+                array_push($this->suggested_avgRatings, "Pas de note");
+            }
         };
     }
 }

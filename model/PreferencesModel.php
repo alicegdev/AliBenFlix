@@ -17,7 +17,7 @@ class PreferencesModel
         $user_genre_preferences_results = $this->db->query($user_genre_preferences_query);
         $user_realisator_preferences_query = "SELECT * FROM realisator INNER JOIN preferences_realisator ON realisator.id = preferences_realisator.realisatorPref_fk INNER JOIN user ON user.id = preferences_realisator.user_fk";
         $user_realisator_preferences_results = $this->db->query($user_realisator_preferences_query);
-        // créer une condition si null
+
         if ($user_actor_preferences_results != null) {
             while ($row = $user_actor_preferences_results->fetch(PDO::FETCH_ASSOC)) {
                 if ($row['user_fk'] == $this->user_id) {

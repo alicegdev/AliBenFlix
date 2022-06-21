@@ -76,11 +76,6 @@ class MovieModel
         $this->picture = $picture;
     }
 
-    public function getAverageRating()
-    {
-        return $this->averageRating;
-    }
-
     public function setAverageRating($averageRating)
     {
         $this->averageRating = $averageRating;

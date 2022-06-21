@@ -9,6 +9,9 @@ class HomeController extends Controller
         $errors_register = array();
         if (isset($_GET['logout'])) {
             unset($_SESSION['user_login_status']);
+            unset($_SESSION['user_id']);
+            unset($_SESSION['prenom']);
+            unset($_SESSION['email']);
         }
         if (isset($_POST['login_submit'])) {
             $email = $_POST['email'];
@@ -34,6 +37,7 @@ class HomeController extends Controller
             $prenom = $_POST['prenom'];
             $email = $_POST['email'];
             $password = $_POST['password'];
+            $emailAlreadyTaken = $this->model->checkUserEmail($email);
 
             if (empty($nom)) {
                 $errors_register['nom_error'] = "Veuillez renseigner votre nom";
@@ -44,9 +48,15 @@ class HomeController extends Controller
             if (empty($email)) {
                 $errors_register['email_error'] = "Veuillez renseigner votre email";
             }
+            if ($emailAlreadyTaken == 1) {
+                $errors_register['email_error'] = "L'email est déjà lié à un compte";
+            }
             if (empty($password)) {
                 $errors_register['password_error'] = "Veuillez renseigner votre mot de passe";
-            } else if (empty($errors_register)) {
+            }
+            if (strlen($password) < 8) {
+                $errors_register['password_error'] = "Votre mot de passe doit contenir au minimum 8 caractères";
+            } else if (empty($errors_register) && strlen($password) > 8) {
                 $user_register = $this->model->userRegister($nom, $prenom, $email, md5($password));
                 if ($user_register == 1) {
                     $_SESSION['prenom'] = $prenom;
@@ -64,12 +74,14 @@ class HomeController extends Controller
             $this->model->suggestByActor();
             $this->model->suggestByRealisator();
 
+
             $data = array(
-                "shows_names" => $this->model->shows_names, "shows_pics_urls" => $this->model->shows_pics_urls, "shows_synopsis" => $this->model->shows_synopsis, "shows_genres" => $this->model->shows_genres,
-                "movies_names" => $this->model->movies_names, "movies_pics_urls" => $this->model->movies_pics_urls, "movies_synopsis" => $this->model->movies_synopsis, "movies_genres" => $this->model->shows_genres,
+                "shows_names" => $this->model->shows_names, "shows_pics_urls" => $this->model->shows_pics_urls, "shows_synopsis" => $this->model->shows_synopsis, "shows_genres" => $this->model->shows_genres,  "shows_avgRatings" => $this->model->shows_avgRatings,
+                "movies_names" => $this->model->movies_names, "movies_pics_urls" => $this->model->movies_pics_urls, "movies_synopsis" => $this->model->movies_synopsis, "movies_genres" => $this->model->shows_genres, "movies_avgRatings" => $this->model->movies_avgRatings,
                 "suggested_names" => $this->model->suggested_names,
                 "suggested_pics_urls" => $this->model->suggested_pics_urls,
-                "suggested_synopsis" => $this->model->suggested_synopsis
+                "suggested_synopsis" => $this->model->suggested_synopsis,
+                "suggested_avgRatings" => $this->model->suggested_avgRatings
             );
             $this->render('dashboard', $data);
         } else {

@@ -74,12 +74,14 @@ class HomeController extends Controller
             $this->model->suggestByActor();
             $this->model->suggestByRealisator();
 
+
             $data = array(
-                "shows_names" => $this->model->shows_names, "shows_pics_urls" => $this->model->shows_pics_urls, "shows_synopsis" => $this->model->shows_synopsis, "shows_genres" => $this->model->shows_genres,
-                "movies_names" => $this->model->movies_names, "movies_pics_urls" => $this->model->movies_pics_urls, "movies_synopsis" => $this->model->movies_synopsis, "movies_genres" => $this->model->shows_genres,
+                "shows_names" => $this->model->shows_names, "shows_pics_urls" => $this->model->shows_pics_urls, "shows_synopsis" => $this->model->shows_synopsis, "shows_genres" => $this->model->shows_genres,  "shows_avgRatings" => $this->model->shows_avgRatings,
+                "movies_names" => $this->model->movies_names, "movies_pics_urls" => $this->model->movies_pics_urls, "movies_synopsis" => $this->model->movies_synopsis, "movies_genres" => $this->model->shows_genres, "movies_avgRatings" => $this->model->movies_avgRatings,
                 "suggested_names" => $this->model->suggested_names,
                 "suggested_pics_urls" => $this->model->suggested_pics_urls,
-                "suggested_synopsis" => $this->model->suggested_synopsis
+                "suggested_synopsis" => $this->model->suggested_synopsis,
+                "suggested_avgRatings" => $this->model->suggested_avgRatings
             );
             $this->render('dashboard', $data);
         } else {

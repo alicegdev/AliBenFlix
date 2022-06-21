@@ -76,14 +76,6 @@ class MovieModel
         $this->picture = $picture;
     }
 
-    public function getAverageRating($name)
-    {
-        $select = $this->db->prepare("SELECT averageRating FROM movie WHERE name = :name");
-        $select->execute(array('name' => $name));
-        $result = $select->fetchColumn();
-        return $this->averageRating;
-    }
-
     public function setAverageRating($averageRating)
     {
         $this->averageRating = $averageRating;

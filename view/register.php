@@ -21,25 +21,25 @@
 
             <input type="text" placeholder="Nom" name="nom" />
             <p>
-                <?php if (isset($errors['nom_error'])) {
-                    echo $errors['nom_error'];
+                <?php if (isset($errors_register['nom_error'])) {
+                    echo $errors_register['nom_error'];
                 } ?></p>
 
             <input type="text" placeholder="Prénom" name="prenom" />
             <p>
-                <?php if (isset($errors['prenom_error'])) {
-                    echo $errors['prenom_error'];
+                <?php if (isset($errors_register['prenom_error'])) {
+                    echo $errors_register['prenom_error'];
                 } ?></p>
             <input type="email" placeholder="Email" name="email" />
             <p>
-                <?php if (isset($errors['email_error'])) {
-                    echo $errors['email_error'];
+                <?php if (isset($errors_register['email_error'])) {
+                    echo $errors_register['email_error'];
                 } ?></p>
             <input type="password" placeholder="Password" name="password" />
             <p>
                 <?php
-                if (isset($errors['password_error'])) {
-                    echo $errors['password_error'];
+                if (isset($errors_register['password_error'])) {
+                    echo $errors_register['password_error'];
                 } ?>
             </p>
             <button type="submit" class="button-52" name="register_submit">S'inscrire</button>

@@ -37,6 +37,26 @@ class HomeModel
         }
     }
 
+    /**
+     * Checks if email already exists
+     *
+     * @param [string] $email
+     * @return [int] the number of users that have the email validated by form
+     */
+    public function checkUserEmail($email)
+    {
+        // avec PDO
+        try {
+            $query = "SELECT COUNT(*) FROM alibenflix.user WHERE user.email='{$email}'";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchColumn();
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+            exit;
+        }
+    }
+
     public function getUserId($email, $password)
     {
         try {

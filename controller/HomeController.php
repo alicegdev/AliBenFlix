@@ -34,6 +34,7 @@ class HomeController extends Controller
             $prenom = $_POST['prenom'];
             $email = $_POST['email'];
             $password = $_POST['password'];
+            $emailAlreadyTaken = $this->model->checkUserEmail($email);
 
             if (empty($nom)) {
                 $errors_register['nom_error'] = "Veuillez renseigner votre nom";
@@ -44,9 +45,15 @@ class HomeController extends Controller
             if (empty($email)) {
                 $errors_register['email_error'] = "Veuillez renseigner votre email";
             }
+            if ($emailAlreadyTaken == 1) {
+                $errors_register['email_error'] = "L'email est déjà lié à un compte";
+            }
             if (empty($password)) {
                 $errors_register['password_error'] = "Veuillez renseigner votre mot de passe";
-            } else if (empty($errors_register)) {
+            }
+            if (strlen($password) < 8) {
+                $errors_register['password_error'] = "Votre mot de passe doit contenir au minimum 8 caractères";
+            } else if (empty($errors_register) && strlen($password) > 8) {
                 $user_register = $this->model->userRegister($nom, $prenom, $email, md5($password));
                 if ($user_register == 1) {
                     $_SESSION['prenom'] = $prenom;

@@ -73,10 +73,16 @@ class PreferencesModel
                 $select = $this->db->prepare("SELECT id FROM actor WHERE firstName = :firstName AND lastName = :lastName ");
                 $select->execute(array('firstName' => $firstName, 'lastName' => $lastName));
                 $result = $select->fetchColumn();
-                $insertQuery = 'INSERT INTO preferences_actor (actorPref_fk, user_fk) VALUES (:id_pref, :user_fk)';
-                // on insère l'id du réalisateur ou de l'acteur + l'id de l'utilisateur dans la table préférence
-                $insert = $this->db->prepare($insertQuery);
-                $insert->execute(array('id_pref' => $result, 'user_fk' => $_SESSION['user_id']));
+                // éviter les doublons
+                $verify = $this->db->prepare("SELECT COUNT(*) FROM preferences_actor WHERE actorPref_fk = :result");
+                $verify->execute(array('result' => $result));
+                $count = $verify->fetchColumn();
+                if ($count == 0) {
+                    $insertQuery = 'INSERT INTO preferences_actor (actorPref_fk, user_fk) VALUES (:id_pref, :user_fk)';
+                    // on insère l'id du réalisateur ou de l'acteur + l'id de l'utilisateur dans la table préférence
+                    $insert = $this->db->prepare($insertQuery);
+                    $insert->execute(array('id_pref' => $result, 'user_fk' => $_SESSION['user_id']));
+                }
             } else if ($datatype == 'realisator') {
                 $explodedValues = explode(' ', $data);
                 $firstName = $explodedValues[0];
@@ -84,17 +90,29 @@ class PreferencesModel
                 $select = $this->db->prepare("SELECT id FROM realisator WHERE firstName = :firstName AND lastName = :lastName ");
                 $select->execute(array('firstName' => $firstName, 'lastName' => $lastName));
                 $result = $select->fetchColumn();
-                $insertQuery = 'INSERT INTO preferences_realisator (realisatorPref_fk, user_fk) VALUES (:id_pref, :user_fk)';
-                $insert = $this->db->prepare($insertQuery);
-                $insert->execute(array('id_pref' => $result, 'user_fk' => $_SESSION['user_id']));
+
+                $verify = $this->db->prepare("SELECT COUNT(*) FROM preferences_realisator WHERE realisatorPref_fk = :result");
+                $verify->execute(array('result' => $result));
+                $count = $verify->fetchColumn();
+                if ($count == 0) {
+                    $insertQuery = 'INSERT INTO preferences_realisator (realisatorPref_fk, user_fk) VALUES (:id_pref, :user_fk)';
+                    $insert = $this->db->prepare($insertQuery);
+                    $insert->execute(array('id_pref' => $result, 'user_fk' => $_SESSION['user_id']));
+                }
             } else if ($datatype == 'genre') {
                 $name = $data;
                 $select = $this->db->prepare("SELECT id FROM genre WHERE name = :name");
                 $select->execute(array('name' => $name));
                 $result = $select->fetchColumn();
-                $insertQuery = 'INSERT INTO preferences_genre (genrePref_fk, user_fk) VALUES (:id_pref, :user_fk)';
-                $insert = $this->db->prepare($insertQuery);
-                $insert->execute(array('id_pref' => $result, 'user_fk' => $_SESSION['user_id']));
+
+                $verify = $this->db->prepare("SELECT COUNT(*) FROM preferences_genre WHERE genrePref_fk = :result");
+                $verify->execute(array('result' => $result));
+                $count = $verify->fetchColumn();
+                if ($count == 0) {
+                    $insertQuery = 'INSERT INTO preferences_genre (genrePref_fk, user_fk) VALUES (:id_pref, :user_fk)';
+                    $insert = $this->db->prepare($insertQuery);
+                    $insert->execute(array('id_pref' => $result, 'user_fk' => $_SESSION['user_id']));
+                }
             }
         } catch (\PDOException $e) {
             echo $e->getMessage();

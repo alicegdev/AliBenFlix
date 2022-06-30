@@ -48,7 +48,7 @@
                     <div class="col-md-12">
                         <div id="carouselExampleControls" class="carousel slide container" data-ride="carousel">
 
-                            <div class="carousel-inner role=" listbox" style=" width:100%; height: 500px !important">
+                            <div class="carousel-inner" role="listbox" style=" width:100%; height: 500px !important">
                                 <?php
                                 $shows_names = $data['shows_names'];
                                 $shows_synopsis = $data['shows_synopsis'];

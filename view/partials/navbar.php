@@ -7,9 +7,6 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav mt-2 mt-lg-0">
             <div class="nav-main-items" style="display:flex; justify-content:space-between">
-                <li class="nav-item active">
-                    <a class="nav-link" href="?action=home">Accueil <span class="sr-only"></span></a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="?action=home">STREAMING</a>
                 </li>

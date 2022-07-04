@@ -22,4 +22,7 @@ if (isset($_GET['action'])) {
     if ($request == 'setRating') {
         $route = 'RatingController@setRating';
     }
+    if ($request == 'booking') {
+        $route = "BookingController@homebooking";
+    }
 }

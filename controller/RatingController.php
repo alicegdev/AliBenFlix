@@ -24,8 +24,13 @@ class RatingController extends Controller
             $comment = $_POST['comment'];
             $film_name = $_POST['film_name'];
             $film_id = intval($this->model->getMovieIdByName($film_name));
-            $this->model->setRating($film_id, $stars, $comment, $user_id);
-            $data = "Votre avis a bien été pris en compte.";
+            $ratingCount = $this->model->verifyRating($film_id, $user_id);
+            if ($ratingCount == 0) {
+                $this->model->setRating($film_id, $stars, $comment, $user_id);
+                $data = "Votre avis a bien été pris en compte.";
+            } else {
+                $data = "Vous ne pouvez pas ajouter de deuxième avis sur ce film ou cette série";
+            }
             $this->render('rating_confirm', $data);
         }
     }

@@ -16,6 +16,14 @@ class RatingModel
         return $this->movie_fk;
     }
 
+    public function  verifyRating($film_id, $user_id)
+    {
+        $verify = $this->db->prepare("SELECT COUNT(*) FROM rating WHERE movie_fk = :movie_fk AND user_fk = :user_fk");
+        $verify->execute(array('movie_fk' => $film_id, 'user_fk' => $user_id));
+        $count = $verify->fetchColumn();
+        return $count;
+    }
+
     public function setRating($film_id, $stars, $comment, $user_id)
     {
         try {
@@ -32,15 +40,15 @@ class RatingModel
     {
         try {
             // faire une deuxième requête pour calculer la moyenne du film
-            $allStars = $this->db->prepare("SELECT * FROM rating WHERE user_fk = :user_fk AND movie_fk = :movie_fk");
-            $allStars->execute(array('user_fk' => $user_id, 'movie_fk' => $film_id));
+            $allStars = $this->db->prepare("SELECT * FROM rating WHERE movie_fk = :movie_fk");
+            $allStars->execute(array('movie_fk' => $film_id));
             $ratingCount = 0;
             $ratingTotal = 0;
             while ($row = $allStars->fetch(PDO::FETCH_ASSOC)) {
                 $ratingCount++;
                 $ratingTotal = $ratingTotal + $row['stars'];
             }
-            $filmAvg = $ratingTotal / $ratingCount;
+            $filmAvg = (float)$ratingTotal / $ratingCount;
             // updater la moyenne dans la table films
             $updateRating = $this->db->prepare("UPDATE movie SET averageRating = :averageRating WHERE id = :movie_id");
             $updateRating->execute(array('averageRating' => $filmAvg, 'movie_id' => $film_id));

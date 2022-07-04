@@ -23,6 +23,10 @@ if (isset($_GET['action'])) {
         $route = 'RatingController@setRating';
     }
     if ($request == 'booking') {
+
         $route = "BookingController@homebooking";
+    }
+    if ($request == 'setLastWatched') {
+        $route = 'UserController@setLastWatched';
     }
 }

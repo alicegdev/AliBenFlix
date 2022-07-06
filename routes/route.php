@@ -1,5 +1,7 @@
 <?php
 
+// ?action=home
+
 if (isset($_GET['action'])) {
     $request = $_GET['action'];
 
@@ -13,7 +15,6 @@ if (isset($_GET['action'])) {
         $route = "PreferencesController@setUserPreferences";
     }
     if ($request == 'episodes') {
-        // rajouter la possibilité de passer un get dans les params
         $route = 'MovieController@getEpisodes';
     }
     if ($request == 'ratings') {
@@ -23,7 +24,6 @@ if (isset($_GET['action'])) {
         $route = 'RatingController@setRating';
     }
     if ($request == 'booking') {
-
         $route = "BookingController@homebooking";
     }
     if ($request == 'setLastWatched') {
